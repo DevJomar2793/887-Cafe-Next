@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 const MapSection = () => {
   return (
-    <section className="py-24 bg-soft-white">
+    <section id="contact" className="py-24 bg-soft-white">
       <div className="max-w-7xl mx-auto px-6 text-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}

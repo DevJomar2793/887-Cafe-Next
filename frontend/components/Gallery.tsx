@@ -1,9 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import Modal from '@/components/Modal';
 
 const images = [
   {
@@ -34,6 +35,8 @@ const images = [
 ];
 
 const Gallery = () => {
+  const [selectedImage, setSelectedImage] = useState<{src: string, alt: string} | null>(null);
+
   return (
     <section className="py-24 bg-cream">
       <div className="max-w-7xl mx-auto px-6">
@@ -71,8 +74,9 @@ const Gallery = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
+              onClick={() => setSelectedImage({ src: img.src, alt: img.alt })}
               className={cn(
-                "relative overflow-hidden rounded-3xl group shadow-sm",
+                "relative overflow-hidden rounded-3xl group shadow-sm cursor-pointer",
                 img.span
               )}
             >
@@ -90,6 +94,24 @@ const Gallery = () => {
             </motion.div>
           ))}
         </div>
+
+        <Modal isOpen={!!selectedImage} onClose={() => setSelectedImage(null)}>
+          <div className="relative w-full h-auto flex flex-col items-center">
+            <div className="relative aspect-video w-full overflow-hidden rounded-2xl">
+              <Image 
+                src={selectedImage?.src || ''} 
+                alt={selectedImage?.alt || 'Gallery image'} 
+                fill 
+                className="object-contain bg-soft-white"
+              />
+            </div>
+            {selectedImage && (
+              <p className="mt-4 text-center text-coffee font-medium italic">
+                {selectedImage.alt}
+              </p>
+            )}
+          </div>
+        </Modal>
       </div>
     </section>
   );
