@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Minus, Plus, Trash2, ShoppingBag, Coffee } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
-import { drinks } from '@/lib/data';
+import { menuItems } from '@/lib/data';
 import { showNotification } from '@/components/NotificationManager';
 
 interface OrderContentProps {
@@ -23,7 +23,7 @@ export default function OrderContent({ onClose }: OrderContentProps) {
       showNotification('Your cart is empty!', 'warning');
       return;
     }
-    
+
     // Simulate API call
     console.log('Order placed:', { customerName, notes, items: cart, total: totalPrice });
     setIsOrdered(true);
@@ -34,7 +34,7 @@ export default function OrderContent({ onClose }: OrderContentProps) {
   if (isOrdered) {
     return (
       <div className="text-center py-12">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           className="flex flex-col items-center"
@@ -46,7 +46,7 @@ export default function OrderContent({ onClose }: OrderContentProps) {
           <p className="text-warm-black/60 mb-8">
             Thank you, {customerName || 'friend'}! Your handcrafted brew is being prepared and will be ready for pickup soon.
           </p>
-          <button 
+          <button
             onClick={() => {
               setIsOrdered(false);
               setCustomerName('');
@@ -77,8 +77,8 @@ export default function OrderContent({ onClose }: OrderContentProps) {
             <Coffee className="w-5 h-5" /> Our Menu
           </h2>
           <div className="grid gap-4 max-h-[40vh] overflow-y-auto pr-2">
-            {drinks.map((drink) => (
-              <motion.div 
+            {menuItems.map((drink) => (
+              <motion.div
                 key={drink.id}
                 whileHover={{ x: 5 }}
                 className="bg-soft-white p-3 rounded-2xl border border-beige/50 shadow-sm flex gap-3"
@@ -93,7 +93,7 @@ export default function OrderContent({ onClose }: OrderContentProps) {
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-coffee text-xs">{drink.price}</span>
-                    <button 
+                    <button
                       onClick={() => addToCart(drink)}
                       className="bg-beige text-coffee px-2 py-1 rounded-lg text-xs font-semibold hover:bg-coffee hover:text-cream transition-all"
                     >
@@ -127,21 +127,21 @@ export default function OrderContent({ onClose }: OrderContentProps) {
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="flex items-center bg-soft-white rounded-lg border border-beige/50">
-                        <button 
+                        <button
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
                           className="p-1 hover:text-coffee transition-colors"
                         >
                           <Minus className="w-3 h-3" />
                         </button>
                         <span className="w-5 text-center text-xs font-bold">{item.quantity}</span>
-                        <button 
+                        <button
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
                           className="p-1 hover:text-coffee transition-colors"
                         >
                           <Plus className="w-3 h-3" />
                         </button>
                       </div>
-                      <button 
+                      <button
                         onClick={() => removeFromCart(item.id)}
                         className="text-red-400 hover:text-red-600 transition-colors"
                       >
@@ -165,8 +165,8 @@ export default function OrderContent({ onClose }: OrderContentProps) {
 
               <form onSubmit={handlePlaceOrder} className="space-y-3 pt-2">
                 <div>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     required
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
@@ -175,14 +175,14 @@ export default function OrderContent({ onClose }: OrderContentProps) {
                   />
                 </div>
                 <div>
-                  <textarea 
+                  <textarea
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder="Special instructions..."
                     className="w-full bg-cream border border-beige rounded-xl px-4 py-2 text-xs focus:ring-2 focus:ring-coffee/20 outline-none transition-all h-16 resize-none"
                   />
                 </div>
-                <button 
+                <button
                   type="submit"
                   className="w-full bg-coffee text-cream py-3 rounded-xl font-bold hover:bg-coffee-light transition-all shadow-md active:scale-95 text-sm"
                 >

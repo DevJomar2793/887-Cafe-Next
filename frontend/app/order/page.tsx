@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Minus, Plus, Trash2, ShoppingBag, Coffee } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
-import { drinks } from '@/lib/data';
+import { menuItems } from '@/lib/data';
 
 export default function OrderPage() {
   const { cart, addToCart, updateQuantity, removeFromCart, totalPrice, clearCart } = useCart();
@@ -15,7 +15,7 @@ export default function OrderPage() {
   const handlePlaceOrder = (e: React.FormEvent) => {
     e.preventDefault();
     if (cart.length === 0) return;
-    
+
     // Simulate API call
     console.log('Order placed:', { customerName, notes, items: cart, total: totalPrice });
     setIsOrdered(true);
@@ -25,7 +25,7 @@ export default function OrderPage() {
   if (isOrdered) {
     return (
       <div className="min-h-screen bg-cream flex items-center justify-center px-6">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           className="max-w-md w-full text-center p-12 bg-soft-white rounded-3xl shadow-xl border border-beige/50"
@@ -37,7 +37,7 @@ export default function OrderPage() {
           <p className="text-warm-black/60 mb-8">
             Thank you, {customerName || 'friend'}! Your handcrafted brew is being prepared and will be ready for pickup soon.
           </p>
-          <button 
+          <button
             onClick={() => {
               setIsOrdered(false);
               setCustomerName('');
@@ -56,7 +56,7 @@ export default function OrderPage() {
     <main className="min-h-screen bg-cream pt-24 pb-12 px-6">
       <div className="max-w-6xl mx-auto">
         <header className="text-center mb-12">
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-5xl font-serif font-bold text-coffee mb-4"
@@ -73,8 +73,8 @@ export default function OrderPage() {
               <Coffee className="w-6 h-6" /> Our Menu
             </h2>
             <div className="grid sm:grid-cols-2 gap-6">
-              {drinks.map((drink) => (
-                <motion.div 
+              {menuItems.map((drink) => (
+                <motion.div
                   key={drink.id}
                   whileHover={{ y: -5 }}
                   className="bg-soft-white p-4 rounded-2xl border border-beige/50 shadow-sm flex gap-4"
@@ -89,7 +89,7 @@ export default function OrderPage() {
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="font-bold text-coffee">{drink.price}</span>
-                      <button 
+                      <button
                         onClick={() => addToCart(drink)}
                         className="bg-beige text-coffee px-3 py-1 rounded-lg text-sm font-semibold hover:bg-coffee hover:text-cream transition-all"
                       >
@@ -124,21 +124,21 @@ export default function OrderPage() {
                         </div>
                         <div className="flex items-center gap-3">
                           <div className="flex items-center bg-soft-white rounded-lg border border-beige/50">
-                            <button 
+                            <button
                               onClick={() => updateQuantity(item.id, item.quantity - 1)}
                               className="p-1 hover:text-coffee transition-colors"
                             >
                               <Minus className="w-3 h-3" />
                             </button>
                             <span className="w-6 text-center text-xs font-bold">{item.quantity}</span>
-                            <button 
+                            <button
                               onClick={() => updateQuantity(item.id, item.quantity + 1)}
                               className="p-1 hover:text-coffee transition-colors"
                             >
                               <Plus className="w-3 h-3" />
                             </button>
                           </div>
-                          <button 
+                          <button
                             onClick={() => removeFromCart(item.id)}
                             className="text-red-400 hover:text-red-600 transition-colors"
                           >
@@ -163,8 +163,8 @@ export default function OrderPage() {
                   <form onSubmit={handlePlaceOrder} className="space-y-4 pt-4">
                     <div>
                       <label className="block text-xs font-semibold text-warm-black/50 uppercase mb-1 ml-1">Name</label>
-                      <input 
-                        type="text" 
+                      <input
+                        type="text"
                         required
                         value={customerName}
                         onChange={(e) => setCustomerName(e.target.value)}
@@ -174,14 +174,14 @@ export default function OrderPage() {
                     </div>
                     <div>
                       <label className="block text-xs font-semibold text-warm-black/50 uppercase mb-1 ml-1">Notes (Optional)</label>
-                      <textarea 
+                      <textarea
                         value={notes}
                         onChange={(e) => setNotes(e.target.value)}
                         placeholder="Special instructions..."
                         className="w-full bg-cream border border-beige rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-coffee/20 outline-none transition-all h-20 resize-none"
                       />
                     </div>
-                    <button 
+                    <button
                       type="submit"
                       className="w-full bg-coffee text-cream py-3 rounded-xl font-bold hover:bg-coffee-light transition-all shadow-md active:scale-95"
                     >

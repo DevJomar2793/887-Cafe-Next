@@ -1,15 +1,15 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Drink } from '@/lib/data';
+import type { MenuItem } from '@/lib/data';
 
-interface CartItem extends Drink {
+interface CartItem extends MenuItem {
   quantity: number;
 }
 
 interface CartContextType {
   cart: CartItem[];
-  addToCart: (drink: Drink) => void;
+  addToCart: (drink: MenuItem) => void;
   removeFromCart: (drinkId: number) => void;
   updateQuantity: (drinkId: number, quantity: number) => void;
   clearCart: () => void;
@@ -36,7 +36,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.setItem('aura_cart', JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = (drink: Drink) => {
+  const addToCart = (drink: MenuItem) => {
     setCart((prev) => {
       const existing = prev.find((item) => item.id === drink.id);
       if (existing) {
