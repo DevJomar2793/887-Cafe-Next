@@ -4,12 +4,15 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Plus } from 'lucide-react';
-import { drinks } from '@/lib/data';
+import { menuItems } from '@/lib/data';
 import { useCart } from '@/context/CartContext';
 import { showNotification } from '@/components/NotificationManager';
 
 const FeaturedCoffee = () => {
   const { addToCart } = useCart();
+  
+  const coffeeItems = menuItems.filter(item => item.category === 'Coffee');
+
   return (
     <section id="menu" className="py-24 bg-soft-white">
       <div className="max-w-7xl mx-auto px-6">
@@ -35,9 +38,9 @@ const FeaturedCoffee = () => {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {drinks.map((drink, index) => (
+          {coffeeItems.map((item, index) => (
             <motion.div
-              key={drink.id}
+              key={item.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -46,22 +49,25 @@ const FeaturedCoffee = () => {
             >
               <div className="relative aspect-square overflow-hidden rounded-xl mb-4">
                 <Image
-                  src={drink.image}
-                  alt={drink.name}
+                  src={item.image}
+                  alt={item.name}
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute top-3 right-3 bg-soft-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-coffee">
-                  {drink.price}
+                  {item.price}
                 </div>
               </div>
               <h3 className="text-xl font-bold text-coffee mb-2 group-hover:text-coffee-light transition-colors">
-                {drink.name}
+                {item.name}
               </h3>
               <p className="text-sm text-warm-black/60 mb-6 line-clamp-2">
-                {drink.description}
+                {item.description}
               </p>
-              <button className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-beige text-coffee font-semibold hover:bg-coffee hover:text-cream transition-all group/btn">
+              <button 
+                onClick={() => addToCart(item)}
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-beige text-coffee font-semibold hover:bg-coffee hover:text-cream transition-all group/btn"
+              >
                 <Plus className="w-4 h-4 group-hover/btn:rotate-90 transition-transform" />
                 Add to Order
               </button>
@@ -72,32 +78,5 @@ const FeaturedCoffee = () => {
     </section>
   );
 };
-
-// export default FeaturedCoffee;
-//       <div className="absolute top-3 right-3 bg-soft-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-coffee">
-//                   {drink.price}
-//                 </div>
-//               </div>
-//               <h3 className="text-xl font-bold text-coffee mb-2 group-hover:text-coffee-light transition-colors">
-//                 {drink.name}
-//               </h3>
-//               <p className="text-sm text-warm-black/60 mb-6 line-clamp-2">
-//                 {drink.description}
-//               </p>
-//               <button 
-//                 onClick={() => addToCart(drink)}
-//                 className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-beige text-coffee font-semibold hover:bg-coffee hover:text-cream transition-all group/btn"
-//               >
-//                 <Plus className="w-4 h-4 group-hover/btn:rotate-90 transition-transform" />
-//                 Add to Order
-//               </button>
-//             </motion.div>
-//           ))}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
-
 
 export default FeaturedCoffee;
