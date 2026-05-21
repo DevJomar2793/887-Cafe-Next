@@ -1,21 +1,23 @@
-import Hero from "../components/Hero";
-import OrderSection from "../components/OrderSection";
-import FeaturedDrinks from "../components/FeaturedDrinks";
-import About from "../components/About";
-import Testimonials from "../components/Testimonials";
-import LocationHours from "../components/LocationHours";
+import Navbar from '@/components/Navbar';
+import Hero from '@/components/Hero';
+import FeaturedCoffee from '@/components/FeaturedCoffee';
+import About from '@/components/About';
+import Testimonials from '@/components/Testimonials';
+import Gallery from '@/components/Gallery';
+import MapSection from '@/components/MapSection'; // New import
+import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-8 px-4 sm:px-16 bg-white dark:bg-black">
-        <Hero />
-        <OrderSection />
-        <FeaturedDrinks />
-        <About />
-        <Testimonials />
-        <LocationHours />
-      </main>
-    </div>
+    <main className="min-h-screen">
+      <Navbar />
+      <Hero />
+      <FeaturedCoffee />
+      <About />
+      <Testimonials />
+      <Gallery />
+      <MapSection /> {/* New component */}
+      <Footer />
+    </main>
   );
 }
