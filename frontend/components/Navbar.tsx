@@ -27,7 +27,7 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    const sectionIds = ['home', 'menu', 'about', 'contact'];
+    const sectionIds = ['home', 'menu', 'about', 'testimonials', 'contact'];
     const observerOptions = {
       root: null,
       rootMargin: '-40% 0px -40% 0px',
@@ -56,6 +56,7 @@ const Navbar = () => {
     { name: 'Home', href: '#home' },
     { name: 'Menu', href: '#menu' },
     { name: 'About', href: '#about' },
+    { name: 'Watch our guest says', href: '#testimonials' },
     { name: 'Location', href: '#contact' },
     { name: 'Dashboard', href: '/dashboard' },
   ];

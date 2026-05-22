@@ -30,7 +30,7 @@ const testimonials = [
 
 const Testimonials = () => {
   return (
-    <section className="py-24 bg-soft-white relative overflow-hidden">
+    <section id="testimonials" className="py-24 bg-soft-white relative overflow-hidden">
       {/* Decorative background circle */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-coffee/5 rounded-full" />
       
