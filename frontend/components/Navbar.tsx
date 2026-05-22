@@ -58,7 +58,7 @@ const Navbar = () => {
     { name: 'About', href: '#about' },
     { name: 'Watch our guest says', href: '#testimonials' },
     { name: 'Location', href: '#contact' },
-    { name: 'Dashboard', href: '/dashboard' },
+    { href: 'dashboard' },
   ];
 
   return (
@@ -76,7 +76,7 @@ const Navbar = () => {
             <Coffee className="text-cream w-6 h-6" />
           </div>
           <span className="font-serif text-2xl font-bold tracking-tight text-coffee">
-            Aura
+            887
           </span>
         </Link>
 

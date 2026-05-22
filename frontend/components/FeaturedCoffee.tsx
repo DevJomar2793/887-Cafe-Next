@@ -54,9 +54,9 @@ const FeaturedCoffee = () => {
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute top-3 right-3 bg-soft-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-coffee">
-                  {item.price}
-                </div>
+            <div className="absolute top-3 right-3 bg-soft-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-coffee">
+              {item.price}
+            </div>
               </div>
               <h3 className="text-xl font-bold text-coffee mb-2 group-hover:text-coffee-light transition-colors">
                 {item.name}
@@ -64,13 +64,13 @@ const FeaturedCoffee = () => {
               <p className="text-sm text-warm-black/60 mb-6 line-clamp-2">
                 {item.description}
               </p>
-              <button 
+              {/* <button 
                 onClick={() => addToCart(item)}
                 className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-beige text-coffee font-semibold hover:bg-coffee hover:text-cream transition-all group/btn"
               >
                 <Plus className="w-4 h-4 group-hover/btn:rotate-90 transition-transform" />
                 Add to Order
-              </button>
+              </button> */}
             </motion.div>
           ))}
         </div>

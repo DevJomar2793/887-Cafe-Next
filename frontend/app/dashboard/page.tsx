@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import StatCard from '@/components/dashboard/StatCard';
 import TopDrinks from '@/components/dashboard/TopDrinks';
 import RecentOrders from '@/components/dashboard/RecentOrders';
@@ -10,7 +11,7 @@ import SalesChart from '@/components/dashboard/SalesChart';
 import QuickActions from '@/components/dashboard/QuickActions';
 import DashboardSkeleton from '@/components/dashboard/DashboardSkeleton';
 import { dashboardData } from '@/lib/dashboard-data';
-import { DollarSign, TrendingUp, ShoppingBag, LayoutDashboard } from 'lucide-react';
+import { DollarSign, TrendingUp, ShoppingBag, LayoutDashboard, ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
@@ -68,11 +69,23 @@ export default function DashboardPage() {
           className="pt-12 pb-12 px-6 max-w-7xl mx-auto"
         >
           {/* Header */}
-          <motion.div variants={itemVariants} className="flex items-center gap-3 mb-8">
-            <div className="bg-coffee p-2 rounded-xl text-cream">
-              <LayoutDashboard size={24} />
+          <motion.div variants={itemVariants} className="flex items-center justify-between mb-8">
+            <div className="flex items-center gap-3">
+              <div className="bg-coffee p-2 rounded-xl text-cream">
+                <LayoutDashboard size={24} />
+              </div>
+              <h1 className="text-3xl font-serif font-bold text-coffee">Admin Dashboard</h1>
             </div>
-            <h1 className="text-3xl font-serif font-bold text-coffee">Admin Dashboard</h1>
+
+            <Link href="/">
+              <motion.div 
+                whileHover={{ x: -5 }}
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-coffee/10 text-coffee font-medium text-sm transition-all hover:bg-coffee/5 cursor-pointer shadow-sm"
+              >
+                <ArrowLeft size={16} />
+                <span>Back to Home</span>
+              </motion.div>
+            </Link>
           </motion.div>
 
           {/* Filters Section */}

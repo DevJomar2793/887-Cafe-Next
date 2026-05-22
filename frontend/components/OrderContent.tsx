@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Minus, Plus, Trash2, ShoppingBag, Coffee } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { menuItems } from '@/lib/data';
@@ -16,6 +16,13 @@ export default function OrderContent({ onClose }: OrderContentProps) {
   const [customerName, setCustomerName] = useState('');
   const [notes, setNotes] = useState('');
   const [isOrdered, setIsOrdered] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('All');
+
+  const categories = ['All', 'Coffee', 'Non-Coffee', 'Pastries', 'Pasta & Noodles', 'Pica-Pica', 'Rice Meal'];
+  
+  const filteredItems = selectedCategory === 'All' 
+    ? menuItems 
+    : menuItems.filter(item => item.category === selectedCategory);
 
   const handlePlaceOrder = (e: React.FormEvent) => {
     e.preventDefault();
@@ -73,36 +80,62 @@ export default function OrderContent({ onClose }: OrderContentProps) {
       <div className="grid md:grid-cols-2 gap-8">
         {/* Menu Section */}
         <div className="space-y-6">
-          <h2 className="text-xl font-serif font-bold text-coffee flex items-center gap-2">
-            <Coffee className="w-5 h-5" /> Our Menu
-          </h2>
+          <div className="flex flex-col gap-4">
+            <h2 className="text-xl font-serif font-bold text-coffee flex items-center gap-2">
+              <Coffee className="w-5 h-5" /> Our Menu
+            </h2>
+            
+            {/* Category Selector */}
+            <div className="flex flex-wrap gap-2">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-300 ${
+                    selectedCategory === cat 
+                      ? 'bg-coffee text-cream shadow-sm' 
+                      : 'bg-soft-white text-warm-black/60 hover:bg-beige'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
+
           <div className="grid gap-4 max-h-[40vh] overflow-y-auto pr-2">
-            {menuItems.map((drink) => (
-              <motion.div
-                key={drink.id}
-                whileHover={{ x: 5 }}
-                className="bg-soft-white p-3 rounded-2xl border border-beige/50 shadow-sm flex gap-3"
-              >
-                <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
-                  <img src={drink.image} alt={drink.name} className="object-cover w-full h-full" />
-                </div>
-                <div className="flex-1 flex flex-col justify-between">
-                  <div>
-                    <h3 className="font-bold text-coffee text-sm">{drink.name}</h3>
-                    <p className="text-[10px] text-warm-black/50 line-clamp-1 mb-1">{drink.description}</p>
+            <AnimatePresence mode="popLayout">
+              {filteredItems.map((item) => (
+                <motion.div
+                  key={item.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  whileHover={{ x: 5 }}
+                  className="bg-soft-white p-3 rounded-2xl border border-beige/50 shadow-sm flex gap-3"
+                >
+                  <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+                    <img src={item.image} alt={item.name} className="object-cover w-full h-full" />
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-coffee text-xs">{drink.price}</span>
-                    <button
-                      onClick={() => addToCart(drink)}
-                      className="bg-beige text-coffee px-2 py-1 rounded-lg text-xs font-semibold hover:bg-coffee hover:text-cream transition-all"
-                    >
-                      Add
-                    </button>
+                  <div className="flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3 className="font-bold text-coffee text-sm">{item.name}</h3>
+                      <p className="text-[10px] text-warm-black/50 line-clamp-1 mb-1">{item.description}</p>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-coffee text-xs">{item.price}</span>
+                      <button
+                        onClick={() => addToCart(item)}
+                        className="bg-beige text-coffee px-2 py-1 rounded-lg text-xs font-semibold hover:bg-coffee hover:text-cream transition-all"
+                      >
+                        Add
+                      </button>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
         </div>
 

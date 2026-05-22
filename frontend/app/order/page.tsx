@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Minus, Plus, Trash2, ShoppingBag, Coffee } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { menuItems } from '@/lib/data';
@@ -11,6 +11,13 @@ export default function OrderPage() {
   const [customerName, setCustomerName] = useState('');
   const [notes, setNotes] = useState('');
   const [isOrdered, setIsOrdered] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('All');
+
+  const categories = ['All', 'Coffee', 'Non-Coffee', 'Pastries', 'Pasta & Noodles', 'Pica-Pica', 'Rice Meal'];
+  
+  const filteredItems = selectedCategory === 'All' 
+    ? menuItems 
+    : menuItems.filter(item => item.category === selectedCategory);
 
   const handlePlaceOrder = (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,37 +76,82 @@ export default function OrderPage() {
         <div className="grid lg:grid-cols-3 gap-12">
           {/* Menu Section */}
           <div className="lg:col-span-2 space-y-8">
-            <h2 className="text-2xl font-serif font-bold text-coffee flex items-center gap-2">
-              <Coffee className="w-6 h-6" /> Our Menu
-            </h2>
-            <div className="grid sm:grid-cols-2 gap-6">
-              {menuItems.map((drink) => (
-                <motion.div
-                  key={drink.id}
-                  whileHover={{ y: -5 }}
-                  className="bg-soft-white p-4 rounded-2xl border border-beige/50 shadow-sm flex gap-4"
-                >
-                  <div className="relative w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
-                    <img src={drink.image} alt={drink.name} className="object-cover w-full h-full" />
-                  </div>
-                  <div className="flex-1 flex flex-col justify-between">
-                    <div>
-                      <h3 className="font-bold text-coffee">{drink.name}</h3>
-                      <p className="text-xs text-warm-black/50 line-clamp-2 mb-2">{drink.description}</p>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-coffee">{drink.price}</span>
-                      <button
-                        onClick={() => addToCart(drink)}
-                        className="bg-beige text-coffee px-3 py-1 rounded-lg text-sm font-semibold hover:bg-coffee hover:text-cream transition-all"
-                      >
-                        Add
-                      </button>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
+            <div className="sticky top-24 z-30 flex flex-col gap-6 pb-6 bg-cream/80 backdrop-blur-md rounded-2xl">
+              <h2 className="text-2xl font-serif font-bold text-coffee flex items-center gap-2">
+                <Coffee className="w-6 h-6" /> Our Menu
+              </h2>
+              
+              {/* Enhanced Category Selector */}
+              <div className="flex flex-wrap gap-2 p-1 bg-soft-white/50 rounded-full border border-beige/50 w-fit">
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`relative px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
+                      selectedCategory === cat 
+                        ? 'text-cream' 
+                        : 'text-warm-black/60 hover:text-coffee'
+                    }`}
+                  >
+                    {selectedCategory === cat && (
+                      <motion.div
+                        layoutId="category-pill"
+                        className="absolute inset-0 bg-coffee rounded-full -z-10 shadow-sm"
+                        transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                      />
+                    )}
+                    {cat}
+                  </button>
+                ))}
+              </div>
             </div>
+
+            <motion.div 
+              layout
+              className="grid sm:grid-cols-2 gap-6"
+            >
+              <AnimatePresence mode="popLayout">
+                {filteredItems.map((item) => (
+                  <motion.div 
+                    key={item.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    whileHover={{ y: -5, scale: 1.02 }}
+                    className="bg-soft-white p-4 rounded-3xl border border-beige/50 shadow-sm hover:shadow-xl transition-all duration-300 flex gap-4 group"
+                  >
+                    <div className="relative w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0">
+                      <img 
+                        src={item.image} 
+                        alt={item.name} 
+                        className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500" 
+                      />
+                    </div>
+                    <div className="flex-1 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-start justify-between gap-2">
+                          <h3 className="font-bold text-coffee text-lg leading-tight">{item.name}</h3>
+                          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 bg-beige text-coffee rounded-full border border-coffee/10">
+                            {item.category}
+                          </span>
+                        </div>
+                        <p className="text-xs text-warm-black/50 line-clamp-2 mt-1">{item.description}</p>
+                      </div>
+                      <div className="flex items-center justify-between mt-2">
+                        <span className="font-serif font-bold text-coffee text-lg">{item.price}</span>
+                        <button 
+                          onClick={() => addToCart(item)}
+                          className="bg-beige text-coffee px-4 py-1.5 rounded-xl text-sm font-bold hover:bg-coffee hover:text-cream transition-all active:scale-95 shadow-sm"
+                        >
+                          Add
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
           </div>
 
           {/* Order Summary Section */}
@@ -124,21 +176,21 @@ export default function OrderPage() {
                         </div>
                         <div className="flex items-center gap-3">
                           <div className="flex items-center bg-soft-white rounded-lg border border-beige/50">
-                            <button
+                            <button 
                               onClick={() => updateQuantity(item.id, item.quantity - 1)}
                               className="p-1 hover:text-coffee transition-colors"
                             >
                               <Minus className="w-3 h-3" />
                             </button>
                             <span className="w-6 text-center text-xs font-bold">{item.quantity}</span>
-                            <button
+                            <button 
                               onClick={() => updateQuantity(item.id, item.quantity + 1)}
                               className="p-1 hover:text-coffee transition-colors"
                             >
                               <Plus className="w-3 h-3" />
                             </button>
                           </div>
-                          <button
+                          <button 
                             onClick={() => removeFromCart(item.id)}
                             className="text-red-400 hover:text-red-600 transition-colors"
                           >
@@ -163,8 +215,8 @@ export default function OrderPage() {
                   <form onSubmit={handlePlaceOrder} className="space-y-4 pt-4">
                     <div>
                       <label className="block text-xs font-semibold text-warm-black/50 uppercase mb-1 ml-1">Name</label>
-                      <input
-                        type="text"
+                      <input 
+                        type="text" 
                         required
                         value={customerName}
                         onChange={(e) => setCustomerName(e.target.value)}
@@ -174,14 +226,14 @@ export default function OrderPage() {
                     </div>
                     <div>
                       <label className="block text-xs font-semibold text-warm-black/50 uppercase mb-1 ml-1">Notes (Optional)</label>
-                      <textarea
+                      <textarea 
                         value={notes}
                         onChange={(e) => setNotes(e.target.value)}
                         placeholder="Special instructions..."
                         className="w-full bg-cream border border-beige rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-coffee/20 outline-none transition-all h-20 resize-none"
                       />
                     </div>
-                    <button
+                    <button 
                       type="submit"
                       className="w-full bg-coffee text-cream py-3 rounded-xl font-bold hover:bg-coffee-light transition-all shadow-md active:scale-95"
                     >
