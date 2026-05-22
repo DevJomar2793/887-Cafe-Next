@@ -12,9 +12,6 @@ const config: Config = {
         'coffee-brown': '#4B3621',
         beige: '#F5F5DC',
       },
-      fontFamily: {
-        sans: ['"Playfair Display"', 'system-ui', 'sans-serif'],
-      },
     },
   },
   plugins: [],

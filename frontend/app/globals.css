@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui;
-  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
+  --font-sans: var(--font-nunito), ui-sans-serif, system-ui;
+  --font-serif: var(--font-nunito), ui-serif, Georgia, serif;
 
   --color-cream: #FFFDD0;
   --color-beige: #F5F5DC;
