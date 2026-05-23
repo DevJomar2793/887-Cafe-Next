@@ -128,3 +128,5 @@ export const menuItems: MenuItem[] = [
     category: 'Rice Meal',
   },
 ];
+
+export const menuCategories = ['All', ...Array.from(new Set(menuItems.map(item => item.category)))];

@@ -1,14 +1,17 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+import React from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 const Hero = () => {
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+    <section
+      id="home"
+      className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden"
+    >
       {/* Background Image with Blur */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -30,7 +33,7 @@ const Hero = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           className="max-w-3xl"
         >
           <span className="inline-block px-4 py-1.5 bg-coffee/10 text-coffee rounded-full text-sm font-semibold mb-6 tracking-wide uppercase">
@@ -38,16 +41,18 @@ const Hero = () => {
           </span>
           <h1 className="text-5xl md:text-8xl font-serif font-bold text-coffee leading-[1.1] mb-6">
             Fresh Coffee, <br />
-            <span className="text-coffee-light italic font-normal">Warm Moments.</span>
+            <span className="text-coffee-light italic font-normal">
+              Warm Moments.
+            </span>
           </h1>
           <p className="text-lg md:text-xl text-warm-black/80 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Experience the art of handcrafted brewing in our cozy minimalist sanctuary.
-            Where every cup tells a story of passion and precision.
+            Experience the art of handcrafted brewing in our cozy minimalist
+            sanctuary. Where every cup tells a story of passion and precision.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="#menu" className="group bg-coffee text-cream px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2 hover:bg-coffee-light transition-all shadow-xl hover:shadow-2xl active:scale-95">
+            <Link href="#full-menu" className="group bg-coffee text-cream px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2 hover:bg-coffee-light transition-all shadow-xl hover:shadow-2xl active:scale-95">
               Explore Menu
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link href="#about" className="px-8 py-4 rounded-full font-bold border-2 border-coffee/20 text-coffee hover:bg-beige transition-all active:scale-95">
               Our Story

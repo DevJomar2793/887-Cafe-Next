@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Minus, Plus, Trash2, ShoppingBag, Coffee } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
-import { menuItems } from '@/lib/data';
+import { menuItems, menuCategories } from '@/lib/data';
 
 export default function OrderPage() {
   const { cart, addToCart, updateQuantity, removeFromCart, totalPrice, clearCart } = useCart();
@@ -13,8 +13,6 @@ export default function OrderPage() {
   const [isOrdered, setIsOrdered] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All');
 
-  const categories = ['All', 'Coffee', 'Non-Coffee', 'Pastries', 'Pasta & Noodles', 'Pica-Pica', 'Rice Meal'];
-  
   const filteredItems = selectedCategory === 'All' 
     ? menuItems 
     : menuItems.filter(item => item.category === selectedCategory);
@@ -70,7 +68,7 @@ export default function OrderPage() {
           >
             Craft Your Order
           </motion.h1>
-          <p className="text-warm-black/60">Select your favorites and we'll have them ready for you.</p>
+          <p className="text-warm-black/60">Select your favorites and we&apos;ll have them ready for you.</p>
         </header>
 
         <div className="grid lg:grid-cols-3 gap-12">
@@ -83,7 +81,7 @@ export default function OrderPage() {
               
               {/* Enhanced Category Selector */}
               <div className="flex flex-wrap gap-2 p-1 bg-soft-white/50 rounded-full border border-beige/50 w-fit">
-                {categories.map((cat) => (
+                {menuCategories.map((cat) => (
                   <button
                     key={cat}
                     onClick={() => setSelectedCategory(cat)}

@@ -101,17 +101,18 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="relative bg-cream rounded-3xl p-8 shadow-2xl border border-beige/50 max-w-xl w-full max-h-[80vh] overflow-y-auto"
+            className="relative bg-cream rounded-3xl shadow-2xl border border-beige/50 max-w-4xl w-full max-h-[85vh] flex flex-col"
             style={{ zIndex: 100 }}
-          >
-            <button
+          >            <button
               onClick={onClose}
               className="absolute top-4 right-4 text-warm-black/50 hover:text-coffee transition-colors"
               aria-label="Close modal"
             >
               <X className="w-6 h-6" />
             </button>
-            {children}
+            <div className="flex-1 overflow-hidden">
+              {children}
+            </div>
           </motion.div>
         </div>
       )}

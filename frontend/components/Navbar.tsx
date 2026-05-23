@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { Coffee, Menu, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from '@/lib/utils';
-import Modal from '@/components/Modal';
-import OrderContent from '@/components/OrderContent';
-import { useCart } from '@/context/CartContext';
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { Coffee, Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "@/lib/utils";
+import Modal from "@/components/Modal";
+import OrderContent from "@/components/OrderContent";
+import { useCart } from "@/context/CartContext";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+  const [activeSection, setActiveSection] = useState("home");
   const { cart } = useCart();
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -22,15 +22,15 @@ const Navbar = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
-    const sectionIds = ['home', 'menu', 'about', 'testimonials', 'contact'];
+    const sectionIds = ["home", "menu", "about", "testimonials", "contact"];
     const observerOptions = {
       root: null,
-      rootMargin: '-40% 0px -40% 0px',
+      rootMargin: "-40% 0px -40% 0px",
       threshold: 0,
     };
 
@@ -42,7 +42,10 @@ const Navbar = () => {
       });
     };
 
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    const observer = new IntersectionObserver(
+      observerCallback,
+      observerOptions,
+    );
 
     sectionIds.forEach((id) => {
       const element = document.getElementById(id);
@@ -53,21 +56,21 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'Menu', href: '#menu' },
-    { name: 'About', href: '#about' },
-    { name: 'Watch our guest says', href: '#testimonials' },
-    { name: 'Location', href: '#contact' },
-    { href: 'dashboard' },
+    { name: "Home", href: "#home" },
+    { name: "Menu", href: "#menu" },
+    { name: "About", href: "#about" },
+    { name: "Testimonials", href: "#testimonials" },
+    { name: "Location", href: "#contact" },
+    { href: "/dashboard" },
   ];
 
   return (
     <nav
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-6 py-4',
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-6 py-4",
         isScrolled
-          ? 'bg-soft-white/80 backdrop-blur-md shadow-sm py-3'
-          : 'bg-transparent'
+          ? "bg-soft-white/80 backdrop-blur-md shadow-sm py-3"
+          : "bg-transparent",
       )}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -83,14 +86,16 @@ const Navbar = () => {
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-1">
           {navLinks.map((link) => {
-            const isActive = activeSection === link.href.replace('#', '');
+            const isActive = activeSection === link.href?.replace("#", "");
             return (
               <Link
-                key={link.name}
+                key={link.name || link.href}
                 href={link.href}
                 className={cn(
                   "relative px-4 py-2 text-sm font-medium transition-colors duration-300",
-                  isActive ? "text-coffee" : "text-warm-black/60 hover:text-coffee"
+                  isActive
+                    ? "text-coffee"
+                    : "text-warm-black/60 hover:text-coffee",
                 )}
               >
                 {link.name}
@@ -98,7 +103,7 @@ const Navbar = () => {
                   <motion.div
                     layoutId="nav-pill"
                     className="absolute inset-0 bg-yellow-400/80 rounded-full -z-10"
-                    transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                   />
                 )}
               </Link>
@@ -142,14 +147,14 @@ const Navbar = () => {
             className="md:hidden absolute top-full left-0 right-0 bg-soft-white border-t border-beige p-6 flex flex-col gap-4"
           >
             {navLinks.map((link) => {
-              const isActive = activeSection === link.href.replace('#', '');
+              const isActive = activeSection === link.href?.replace("#", "");
               return (
                 <Link
-                  key={link.name}
+                  key={link.name || link.href}
                   href={link.href}
                   className={cn(
                     "text-lg font-medium transition-colors py-2 px-4 rounded-xl",
-                    isActive ? "bg-beige text-coffee" : "text-warm-black/70"
+                    isActive ? "bg-beige text-coffee" : "text-warm-black/70",
                   )}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
@@ -175,7 +180,10 @@ const Navbar = () => {
         )}
       </AnimatePresence>
 
-      <Modal isOpen={isOrderModalOpen} onClose={() => setIsOrderModalOpen(false)}>
+      <Modal
+        isOpen={isOrderModalOpen}
+        onClose={() => setIsOrderModalOpen(false)}
+      >
         <OrderContent onClose={() => setIsOrderModalOpen(false)} />
       </Modal>
     </nav>
