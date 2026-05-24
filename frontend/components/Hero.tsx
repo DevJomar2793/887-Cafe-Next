@@ -18,6 +18,7 @@ const Hero = () => {
           src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2070&auto=format&fit=crop"
           alt="Coffee Shop Background"
           fill
+          sizes="100vw"
           className="object-cover blur-sm scale-105"
           priority
         />

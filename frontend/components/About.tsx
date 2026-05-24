@@ -29,6 +29,8 @@ const About = () => {
                 src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=2070&auto=format&fit=crop"
                 alt="Barista pouring coffee"
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority
                 className="object-cover"
               />
             </div>

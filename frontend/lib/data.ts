@@ -38,7 +38,7 @@ export const menuItems: MenuItem[] = [
     name: 'Hazelnut Praline',
     description: 'Rich espresso with toasted hazelnut and caramelized praline topping.',
     price: '$6.50',
-    image: 'https://images.unsplash.com/photo-1541167760496-162955ed8a9f?q=80&w=1974&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=1974&auto=format&fit=crop',
     category: 'Coffee',
   },
 
@@ -48,7 +48,7 @@ export const menuItems: MenuItem[] = [
     name: 'Matcha Latte',
     description: 'Premium grade matcha blended with creamy steamed milk.',
     price: '$5.75',
-    image: 'https://images.unsplash.com/photo-1515823064-d6e0739917bb?q=80&w=1974&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=1974&auto=format&fit=crop',
     category: 'Non-Coffee',
   },
   {
@@ -56,7 +56,7 @@ export const menuItems: MenuItem[] = [
     name: 'Dark Chocolate Mocha',
     description: 'Rich Belgian chocolate melted into espresso and steamed milk.',
     price: '$5.50',
-    image: 'https://images.unsplash.com/photo-1544787217-f76630be969a?q=80&w=1974&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1974&auto=format&fit=crop',
     category: 'Non-Coffee',
   },
   // Pastries
@@ -73,7 +73,7 @@ export const menuItems: MenuItem[] = [
     name: 'Almond Danish',
     description: 'Sweet almond cream filling topped with toasted almond flakes.',
     price: '$4.75',
-    image: 'https://images.unsplash.com/photo-1509365465985-25d11c17fd0d?q=80&w=1974&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1974&auto=format&fit=crop',
     category: 'Pastries',
   },
   // Pasta & Noodles
@@ -90,7 +90,7 @@ export const menuItems: MenuItem[] = [
     name: 'Pesto Penne',
     description: 'Penne pasta tossed in a fresh basil pesto with parmesan.',
     price: '$11.50',
-    image: 'https://images.unsplash.com/photo-1473093226795-af9932f5a96d?q=80&w=2070&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1612874742237-6526221588e3?q=80&w=2070&auto=format&fit=crop',
     category: 'Pasta & Noodles',
   },
   // Pica-Pica
@@ -99,7 +99,7 @@ export const menuItems: MenuItem[] = [
     name: 'Truffle Fries',
     description: 'Crispy golden fries tossed in white truffle oil and parmesan.',
     price: '$7.50',
-    image: 'https://images.unsplash.com/photo-1573080496219-757d70756327?q=80&w=1974&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=1974&auto=format&fit=crop',
     category: 'Pica-Pica',
   },
   {
@@ -107,7 +107,7 @@ export const menuItems: MenuItem[] = [
     name: 'Chicken Wings',
     description: 'Crispy wings glazed in our signature honey garlic sauce.',
     price: '$9.00',
-    image: 'https://images.unsplash.com/photo-1567620832903-9fc676f775bb?q=80&w=1974&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1551033406-611cf9a28f67?q=80&w=1974&auto=format&fit=crop',
     category: 'Pica-Pica',
   },
   // Rice Meal
@@ -116,7 +116,7 @@ export const menuItems: MenuItem[] = [
     name: 'Beef Gyudon',
     description: 'Thinly sliced beef and onions simmered in a sweet soy glaze.',
     price: '$13.00',
-    image: 'https://images.unsplash.com/photo-1512058560524-91575f7d3d8d?q=80&w=1974&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1485808191679-5f86510681a2?q=80&w=1974&auto=format&fit=crop',
     category: 'Rice Meal',
   },
   {
@@ -124,7 +124,7 @@ export const menuItems: MenuItem[] = [
     name: 'Grilled Salmon Rice',
     description: 'Perfectly grilled salmon fillet served over steamed jasmine rice.',
     price: '$15.00',
-    image: 'https://images.unsplash.com/photo-1519708227418-c87307939706?q=80&w=1974&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=1974&auto=format&fit=crop',
     category: 'Rice Meal',
   },
 ];

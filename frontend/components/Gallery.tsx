@@ -18,7 +18,7 @@ const images = [
     span: 'md:col-span-2 md:row-span-1',
   },
   {
-    src: 'https://images.unsplash.com/photo-1497933321162-0732bd5660e6?q=80&w=2073&auto=format&fit=crop',
+    src: 'https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=2073&auto=format&fit=crop',
     alt: 'Barista working',
     span: 'md:col-span-1 md:row-span-1',
   },
@@ -28,7 +28,7 @@ const images = [
     span: 'md:col-span-1 md:row-span-1',
   },
   {
-    src: 'https://images.unsplash.com/photo-1521017432531-fbd92d744264?q=80&w=2070&auto=format&fit=crop',
+    src: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=2070&auto=format&fit=crop',
     alt: 'Coffee art',
     span: 'md:col-span-2 md:row-span-1',
   },
@@ -84,6 +84,7 @@ const Gallery = () => {
                 src={img.src}
                 alt={img.alt}
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-cover group-hover:scale-110 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-coffee/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -102,6 +103,7 @@ const Gallery = () => {
                 src={selectedImage?.src || ''} 
                 alt={selectedImage?.alt || 'Gallery image'} 
                 fill 
+                sizes="100vw"
                 className="object-contain bg-soft-white"
               />
             </div>
