@@ -145,7 +145,7 @@ const Navbar = () => {
                 </Link>
               );
             })}
-            {/* <button
+            <button
               onClick={() => {
                 setIsOrderModalOpen(true);
                 setIsMobileMenuOpen(false);
@@ -158,7 +158,7 @@ const Navbar = () => {
                   {totalItems} items
                 </span>
               )}
-            </button> */}
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
