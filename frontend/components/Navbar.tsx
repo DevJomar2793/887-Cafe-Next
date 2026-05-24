@@ -109,23 +109,6 @@ const Navbar = () => {
               </Link>
             );
           })}
-          <div className="ml-4">
-            <button
-              onClick={() => setIsOrderModalOpen(true)}
-              className="bg-coffee text-cream px-6 py-2.5 rounded-full font-medium hover:bg-coffee-light transition-all shadow-md hover:shadow-lg active:scale-95 relative"
-            >
-              Order Now
-              {totalItems > 0 && (
-                <motion.span
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  className="absolute -top-1 -right-1 bg-beige text-coffee text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-coffee shadow-sm"
-                >
-                  {totalItems}
-                </motion.span>
-              )}
-            </button>
-          </div>
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -162,7 +145,7 @@ const Navbar = () => {
                 </Link>
               );
             })}
-            <button
+            {/* <button
               onClick={() => {
                 setIsOrderModalOpen(true);
                 setIsMobileMenuOpen(false);
@@ -175,7 +158,7 @@ const Navbar = () => {
                   {totalItems} items
                 </span>
               )}
-            </button>
+            </button> */}
           </motion.div>
         )}
       </AnimatePresence>

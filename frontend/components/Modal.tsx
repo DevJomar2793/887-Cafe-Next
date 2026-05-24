@@ -110,7 +110,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
             >
               <X className="w-6 h-6" />
             </button>
-            <div className="flex-1 overflow-hidden">
+            <div className="flex-1 overflow-y-auto">
               {children}
             </div>
           </motion.div>
