@@ -13,6 +13,7 @@ class OrderBase(BaseModel):
 class OrderCreate(OrderBase):
     pass
 
+
 class OrderResponse(OrderBase):
     id: int
     order_number: str
@@ -22,5 +23,9 @@ class OrderResponse(OrderBase):
     status: str
     created_at: Optional[datetime] = None
 
-    class Config:
-        from_attributes = True
+class OrderMessageResponse(BaseModel):
+    message: str
+    order: OrderResponse
+
+class Config:
+    from_attributes = True

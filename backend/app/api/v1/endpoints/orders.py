@@ -1,5 +1,6 @@
+from app.services import order_service
 from fastapi import APIRouter, HTTPException, status
-from app.schemas.schema import OrderCreate, OrderResponse
+from app.schemas.schema import OrderCreate, OrderResponse, OrderMessageResponse
 from app.services.order_service import create_order, get_orders, get_order_by_id
 from app.core.database import get_db
 
@@ -12,11 +13,17 @@ async def list_orders():
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
 
-# Need to Fix the POST request for order
-@router.post("/api/v1/add_order", status_code=status.HTTP_201_CREATED, response_model=OrderResponse)
-async def place_order(order: OrderCreate):
+@router.post("/api/v1/add_order", status_code=status.HTTP_201_CREATED, response_model=OrderMessageResponse)
+async def place_order(order_data: OrderCreate):
     try:
-        return create_order(order.customer_name, order.total_amount)
+        created_order = create_order(
+            customer_name=order_data.customer_name,
+            total_amount=order_data.total_amount
+        )
+        return {"message": "Order added successfully",
+                "order": created_order,
+                "status": status.HTTP_201_CREATED
+        }
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
 
