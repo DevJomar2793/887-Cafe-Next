@@ -40,7 +40,6 @@ def create_order(customer_name: str, total_amount: float):
         db.commit()
         db.refresh(new_order)
         return new_order
-        
     finally:
         db.close()
 
