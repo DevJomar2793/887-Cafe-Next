@@ -6,7 +6,7 @@ from app.models.models import OrderModel
 def generate_order_number():
     """
     Generates a custom order number in the format: ORD-YY/MM/DD/XXX
-    Example: ORD-26/05/25/001
+    Example: ORD-26/05/28/001
     """
     now = datetime.now()
     date_str = now.strftime("%y/%m/%d")
