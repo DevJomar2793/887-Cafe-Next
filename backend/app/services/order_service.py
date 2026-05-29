@@ -58,3 +58,20 @@ def get_order_by_id(order_id: int):
         return db.query(OrderModel).filter(OrderModel.id == order_id).first()
     finally:
         db.close()
+
+def update_order(id: int, customer_name: str, status: str):
+    """Updates the status of a specific order."""
+    db = SessionLocal()
+    try:
+        order = db.query(OrderModel).filter(OrderModel.id == id).first()
+        if not order:
+            return None
+        order.customer_name = customer_name
+        order.status = status
+        db.commit()
+        db.refresh(order)
+        return order
+    finally:
+        db.close()
+    
+    

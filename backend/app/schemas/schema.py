@@ -13,7 +13,6 @@ class OrderBase(BaseModel):
 class OrderCreate(OrderBase):
     pass
 
-
 class OrderResponse(OrderBase):
     id: int
     order_number: str
@@ -26,6 +25,10 @@ class OrderResponse(OrderBase):
 class OrderMessageResponse(BaseModel):
     message: str
     order: OrderResponse
+
+class OrderUpdate(BaseModel):
+    customer_name: str
+    status: str
 
 class Config:
     from_attributes = True
