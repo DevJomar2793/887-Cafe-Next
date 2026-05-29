@@ -2,16 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import StatCard from '@/components/dashboard/StatCard';
-import TopDrinks from '@/components/dashboard/TopDrinks';
 import RecentOrders from '@/components/dashboard/RecentOrders';
 import SideNavbar from '@/components/dashboard/SideNavbar';
 import DashboardFilters from '@/components/dashboard/DashboardFilters';
-import SalesChart from '@/components/dashboard/SalesChart';
-import QuickActions from '@/components/dashboard/QuickActions';
 import DashboardSkeleton from '@/components/dashboard/DashboardSkeleton';
 import { dashboardData } from '@/lib/dashboard-data';
-import { DollarSign, TrendingUp, ShoppingBag, LayoutDashboard, ArrowLeft } from 'lucide-react';
+import { LayoutDashboard, ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
@@ -27,10 +23,6 @@ export default function DashboardPage() {
     const timer = setTimeout(() => setIsLoading(false), 1500);
     return () => clearTimeout(timer);
   }, []);
-
-  const dailyTotal = dashboardData.dailySales.reduce((acc, curr) => acc + curr.amount, 0);
-  const weeklyTotal = dashboardData.weeklySales.reduce((acc, curr) => acc + curr.amount, 0);
-  const totalOrders = dashboardData.recentOrders.length * 250;
 
   if (isLoading) return <DashboardSkeleton />;
 
@@ -98,62 +90,14 @@ export default function DashboardPage() {
             />
           </motion.div>
 
-          {/* Stats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <motion.div variants={itemVariants}>
-              <StatCard 
-                variant="coffee"
-                label="Daily Sales" 
-                value={`$${dailyTotal.toLocaleString()}`} 
-                trend="+12.5%" 
-                trendUp={true} 
-                icon={DollarSign} 
-              />
-            </motion.div>
-            <motion.div variants={itemVariants}>
-              <StatCard 
-                variant="beige"
-                label="Weekly Sales" 
-                value={`$${weeklyTotal.toLocaleString()}`} 
-                trend="+8.2%" 
-                trendUp={true} 
-                icon={TrendingUp} 
-              />
-            </motion.div>
-            <motion.div variants={itemVariants}>
-              <StatCard 
-                label="Total Orders" 
-                value={totalOrders.toLocaleString()} 
-                trend="+5.4%" 
-                trendUp={true} 
-                icon={ShoppingBag} 
-              />
-            </motion.div>
-          </div>
-
-          {/* Main Content Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-1 space-y-8">
-              <motion.div variants={itemVariants}>
-                <TopDrinks drinks={dashboardData.topDrinks} />
-              </motion.div>
-              <motion.div variants={itemVariants}>
-                <QuickActions />
-              </motion.div>
-            </div>
-            <div className="lg:col-span-2 space-y-8">
-              <motion.div variants={itemVariants}>
-                <SalesChart data={dashboardData.dailySales} />
-              </motion.div>
-              <motion.div variants={itemVariants}>
-                <RecentOrders 
-                  orders={dashboardData.recentOrders} 
-                  searchQuery={searchQuery}
-                  statusFilter={statusFilter}
-                />
-              </motion.div>
-            </div>
-          </div>
+          {/* Recent Orders Section */}
+          <motion.div variants={itemVariants} className="mt-8">
+            <RecentOrders 
+              orders={dashboardData.recentOrders} 
+              searchQuery={searchQuery}
+              statusFilter={statusFilter}
+            />
+          </motion.div>
         </motion.div>
       </main>
     </div>
