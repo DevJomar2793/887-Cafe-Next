@@ -30,5 +30,9 @@ class OrderUpdate(BaseModel):
     customer_name: str
     status: str
 
+class OrderDelete(BaseModel):
+    message: str
+    order: OrderResponse
+
 class Config:
     from_attributes = True

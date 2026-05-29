@@ -59,19 +59,33 @@ def get_order_by_id(order_id: int):
     finally:
         db.close()
 
-def update_order_data(order_id: int, customer_name: str, status: str):
+def update_order_data(id: int, name: str, status: str):
     """Updates the status of a specific order."""
     db = SessionLocal()
     try:
-        order = db.query(OrderModel).filter(OrderModel.id == order_id).first()
+        order = db.query(OrderModel).filter(OrderModel.id == id).first()
         if not order:
             return None
-        order.customer_name = customer_name
+        order.customer_name = name
         order.status = status
         db.commit()
         db.refresh(order)
         return order
     finally:
         db.close()
+
+def delete_order_data(id: int):
+    """Deletes the order by its ID."""
+    db = SessionLocal()
+    try:
+        order = db.query(OrderModel).filter(OrderModel.id == id).first()
+        if not order:
+            return None
+        db.delete(order)
+        db.commit()
+        return order
+    finally:
+        db.close()
+    
     
     
