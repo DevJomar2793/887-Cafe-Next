@@ -23,10 +23,9 @@ export default function OrderContent({ onClose }: OrderContentProps) {
   const [customerName, setCustomerName] = useState("");
   const [notes, setNotes] = useState("");
   const [isOrdered, setIsOrdered] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState("Coffee");
 
   const categories = [
-    "All",
     "Coffee",
     "Non-Coffee",
     "Pastries",
@@ -117,7 +116,7 @@ export default function OrderContent({ onClose }: OrderContentProps) {
         </p>
       </header>
 
-      <div className="grid md:grid-cols-2 gap-8 flex-1 md:overflow-hidden min-h-0">
+      <div className="grid md:grid-cols-[1.6fr_1fr] gap-8 flex-1 md:overflow-hidden min-h-0">
         {/* Menu Section */}
         <div className="flex flex-col md:h-full space-y-6 md:overflow-hidden">
           <div className="shrink-0">
@@ -131,9 +130,9 @@ export default function OrderContent({ onClose }: OrderContentProps) {
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-300 ${
+                  className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-300 ${
                     selectedCategory === cat
-                      ? "bg-coffee text-cream shadow-sm"
+                      ? "bg-coffee text-cream shadow-md scale-105"
                       : "bg-soft-white text-warm-black/60 hover:bg-beige"
                   }`}
                 >
@@ -152,22 +151,22 @@ export default function OrderContent({ onClose }: OrderContentProps) {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
-                  whileHover={{ x: 5 }}
-                  className="bg-soft-white p-3 rounded-2xl border border-beige/50 shadow-sm flex gap-3 group transition-all hover:border-coffee/30 hover:shadow-md"
+                  whileHover={{ y: -4 }}
+                  className="bg-white p-3 rounded-2xl border border-beige/30 shadow-sm flex gap-3 group transition-all duration-300 hover:shadow-md hover:border-coffee/20"
                 >
-                  <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+                  <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 shadow-inner">
                     <img
                       src={item.image}
                       alt={item.name}
-                      className="object-cover w-full h-full transition-transform group-hover:scale-110"
+                      className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
                     />
                   </div>
-                  <div className="flex-1 flex flex-col justify-between">
+                  <div className="flex-1 flex flex-col justify-between py-0.5">
                     <div>
-                      <h3 className="font-bold text-coffee text-sm">
+                      <h3 className="font-bold text-coffee text-sm tracking-tight">
                         {item.name}
                       </h3>
-                      <p className="text-[10px] text-warm-black/50 line-clamp-1 mb-1">
+                      <p className="text-[10px] text-warm-black/50 line-clamp-1 mb-1 leading-tight">
                         {item.description}
                       </p>
                     </div>
@@ -177,9 +176,9 @@ export default function OrderContent({ onClose }: OrderContentProps) {
                       </span>
                       <button
                         onClick={() => addToCart(item)}
-                        className="bg-beige text-coffee px-2 py-1 rounded-lg text-xs font-semibold hover:bg-coffee hover:text-cream transition-all active:scale-95"
+                        className="bg-coffee text-cream px-3 py-1 rounded-lg text-[10px] font-bold hover:bg-coffee-light transition-all shadow-sm"
                       >
-                        Add
+                        Add +
                       </button>
                     </div>
                   </div>
@@ -187,21 +186,45 @@ export default function OrderContent({ onClose }: OrderContentProps) {
               ))}
             </AnimatePresence>
           </div>
+
+          {/* Total Display */}
+          <div className="shrink-0 border-t border-beige pt-4 space-y-1">
+            <div className="flex justify-between text-warm-black/60 text-xs">
+              <span>Subtotal</span>
+              <span>${totalPrice.toFixed(2)}</span>
+            </div>
+            <div className="flex justify-between text-lg font-serif font-bold text-coffee">
+              <span>Total</span>
+              <span>${totalPrice.toFixed(2)}</span>
+            </div>
+          </div>
         </div>
 
         {/* Order Summary Section */}
-        <div className="flex flex-col h-full space-y-6 overflow-hidden">
+        <div className="flex flex-col h-full space-y-6 overflow-hidden bg-soft-white/50 backdrop-blur-md rounded-3xl border border-white/20 p-6 shadow-sm">
           <h2 className="text-xl font-serif font-bold text-coffee flex items-center gap-2 shrink-0">
             <ShoppingBag className="w-5 h-5" /> Your Order
           </h2>
 
           {cart.length === 0 ? (
-            <div className="flex-1 flex items-center justify-center text-center py-12 bg-soft-white rounded-2xl border border-dashed border-beige">
-              <div className="flex flex-col items-center gap-3">
-                <ShoppingBag className="w-12 h-12 text-warm-black/20" />
-                <p className="text-warm-black/40 italic text-sm">
-                  Your cart is empty
-                </p>
+            <div className="flex-1 flex items-center justify-center text-center p-8 bg-white/40 rounded-3xl border border-dashed border-beige/60">
+              <div className="flex flex-col items-center gap-4 max-w-[200px]">
+                <div className="relative">
+                  <ShoppingBag className="w-16 h-16 text-coffee/20" />
+                  <motion.div 
+                    animate={{ rotate: [0, -10, 10, 0] }} 
+                    transition={{ repeat: Infinity, duration: 2 }}
+                    className="absolute -top-2 -right-2 bg-coffee text-cream p-1 rounded-full"
+                  >
+                    <Plus className="w-3 h-3" />
+                  </motion.div>
+                </div>
+                <div>
+                  <p className="text-coffee font-serif font-bold text-sm mb-1">Your cart is empty</p>
+                  <p className="text-warm-black/40 text-[11px] leading-relaxed">
+                    Pick some handcrafted brews to get started!
+                  </p>
+                </div>
               </div>
             </div>
           ) : (
@@ -210,41 +233,41 @@ export default function OrderContent({ onClose }: OrderContentProps) {
                 {cart.map((item) => (
                   <div
                     key={item.id}
-                    className="flex items-center justify-between gap-3 bg-cream p-3 rounded-xl border border-beige/30 shadow-sm"
+                    className="flex items-center justify-between gap-3 bg-white/80 p-3 rounded-xl border border-beige/50 shadow-sm group hover:border-coffee/20 transition-all"
                   >
                     <div className="flex-1">
-                      <p className="font-medium text-coffee text-xs">
+                      <p className="font-bold text-coffee text-xs tracking-tight">
                         {item.name}
                       </p>
-                      <p className="text-[10px] text-warm-black/50">
+                      <p className="text-[10px] text-warm-black/40 font-medium">
                         {item.price} each
                       </p>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <div className="flex items-center bg-soft-white rounded-lg border border-beige/50">
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center bg-soft-white/80 rounded-full border border-beige/50 p-0.5">
                         <button
                           onClick={() =>
                             updateQuantity(item.id, item.quantity - 1)
                           }
-                          className="p-1 hover:text-coffee transition-colors"
+                          className="p-1 hover:bg-white hover:text-coffee rounded-full transition-all text-warm-black/60"
                         >
                           <Minus className="w-3 h-3" />
                         </button>
-                        <span className="w-5 text-center text-xs font-bold">
+                        <span className="w-4 text-center text-[10px] font-bold text-coffee">
                           {item.quantity}
                         </span>
                         <button
                           onClick={() =>
                             updateQuantity(item.id, item.quantity + 1)
                           }
-                          className="p-1 hover:text-coffee transition-colors"
+                          className="p-1 hover:bg-white hover:text-coffee rounded-full transition-all text-warm-black/60"
                         >
                           <Plus className="w-3 h-3" />
                         </button>
                       </div>
                       <button
                         onClick={() => removeFromCart(item.id)}
-                        className="text-red-400 hover:text-red-600 transition-colors"
+                        className="p-1.5 text-red-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
                       >
                         <Trash2 className="w-3 h-3" />
                       </button>
@@ -253,42 +276,37 @@ export default function OrderContent({ onClose }: OrderContentProps) {
                 ))}
               </div>
 
-              <div className="border-t border-beige pt-4 mt-4 space-y-4 shrink-0">
-                <div className="space-y-1">
-                  <div className="flex justify-between text-warm-black/60 text-xs">
-                    <span>Subtotal</span>
-                    <span>${totalPrice.toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between text-lg font-serif font-bold text-coffee">
-                    <span>Total</span>
-                    <span>${totalPrice.toFixed(2)}</span>
-                  </div>
-                </div>
-
-                <form onSubmit={handlePlaceOrder} className="space-y-3">
-                  <div>
+              <div className="border-t border-beige pt-6 mt-6 space-y-4 shrink-0">
+                <form onSubmit={handlePlaceOrder} className="space-y-4">
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-bold text-coffee/60 uppercase tracking-wider ml-1">
+                      Customer Name
+                    </label>
                     <input
                       type="text"
                       required
                       value={customerName}
                       onChange={(e) => setCustomerName(e.target.value)}
-                      placeholder="Your name"
-                      className="w-full bg-cream border border-beige rounded-xl px-4 py-2 text-xs focus:ring-2 focus:ring-coffee/20 outline-none transition-all placeholder:text-warm-black/30"
+                      placeholder="Enter your name"
+                      className="w-full bg-white border border-beige rounded-xl px-4 py-2.5 text-xs focus:ring-2 focus:ring-coffee/10 focus:border-coffee/30 outline-none transition-all placeholder:text-warm-black/20 shadow-sm"
                     />
                   </div>
-                  <div>
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-bold text-coffee/60 uppercase tracking-wider ml-1">
+                      Special Notes
+                    </label>
                     <textarea
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
-                      placeholder="Special instructions..."
-                      className="w-full bg-cream border border-beige rounded-xl px-4 py-2 text-xs focus:ring-2 focus:ring-coffee/20 outline-none transition-all h-16 resize-none placeholder:text-warm-black/30"
+                      placeholder="Any preferences? (e.g. less sugar)"
+                      className="w-full bg-white border border-beige rounded-xl px-4 py-2.5 text-xs focus:ring-2 focus:ring-coffee/10 focus:border-coffee/30 outline-none transition-all h-20 resize-none placeholder:text-warm-black/20 shadow-sm"
                     />
                   </div>
                   <button
                     type="submit"
-                    className="w-full bg-coffee text-cream py-3 rounded-xl font-bold hover:bg-coffee-light transition-all shadow-md active:scale-95 text-sm flex items-center justify-center gap-2"
+                    className="w-full bg-coffee text-cream py-3.5 rounded-2xl font-bold hover:bg-coffee-light transition-all shadow-lg shadow-coffee/20 active:scale-95 text-sm flex items-center justify-center gap-2 group"
                   >
-                    <ShoppingBag className="w-4 h-4" />
+                    <ShoppingBag className="w-4 h-4 group-hover:rotate-12 transition-transform" />
                     Place Order
                   </button>
                 </form>

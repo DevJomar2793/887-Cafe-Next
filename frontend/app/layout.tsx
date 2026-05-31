@@ -11,7 +11,8 @@ const nunito = Nunito({
 
 export const metadata: Metadata = {
   title: "Aura Coffee | Fresh Coffee, Warm Moments",
-  description: "Experience the finest handcrafted coffee in a cozy minimalist atmosphere.",
+  description:
+    "Experience the finest handcrafted coffee in a cozy minimalist atmosphere.",
 };
 
 export default function RootLayout({
@@ -20,13 +21,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
         className={`${nunito.variable} antialiased font-sans bg-cream text-warm-black`}
+        suppressHydrationWarning
       >
-        <CartProvider>
-          {children}
-        </CartProvider>
+        <CartProvider>{children}</CartProvider>
       </body>
     </html>
   );

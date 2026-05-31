@@ -3,13 +3,14 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Coffee, Menu, X } from "lucide-react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Modal from "@/components/Modal";
 import OrderContent from "@/components/OrderContent";
 import { useCart } from "@/context/CartContext";
 
-const Navbar = () => {
+export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
@@ -75,8 +76,14 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link href="#home" className="flex items-center gap-2 group">
-          <div className="bg-coffee p-2 rounded-xl group-hover:rotate-12 transition-transform duration-300">
-            <Coffee className="text-cream w-6 h-6" />
+          <div className="relative w-10 h-10 overflow-hidden rounded-xl group-hover:rotate-12 transition-transform duration-300">
+            <Image
+              src="/images/logo.jpg"
+              alt="887 Cafe Logo"
+              width={50}
+              height={50}
+              className="object-cover"
+            />
           </div>
           <span className="font-serif text-2xl font-bold tracking-tight text-coffee">
             887
@@ -109,6 +116,23 @@ const Navbar = () => {
               </Link>
             );
           })}
+          <div className="ml-4">
+            <button
+              onClick={() => setIsOrderModalOpen(true)}
+              className="bg-coffee text-cream px-6 py-2.5 rounded-full font-medium hover:bg-coffee-light transition-all shadow-md hover:shadow-lg active:scale-95 relative"
+            >
+              Order Now
+              {totalItems > 0 && (
+                <motion.span
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  className="absolute -top-1 -right-1 bg-beige text-coffee text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-coffee shadow-sm"
+                >
+                  {totalItems}
+                </motion.span>
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -145,7 +169,7 @@ const Navbar = () => {
                 </Link>
               );
             })}
-            {/* <button
+            <button
               onClick={() => {
                 setIsOrderModalOpen(true);
                 setIsMobileMenuOpen(false);
@@ -158,7 +182,7 @@ const Navbar = () => {
                   {totalItems} items
                 </span>
               )}
-            </button> */}
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
@@ -171,6 +195,4 @@ const Navbar = () => {
       </Modal>
     </nav>
   );
-};
-
-export default Navbar;
+}

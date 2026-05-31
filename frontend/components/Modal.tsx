@@ -9,6 +9,7 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  containerClassName?: string;
 }
 
 const modalVariants = {
@@ -54,7 +55,7 @@ const overlayVariants = {
   }
 };
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, containerClassName }) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -101,7 +102,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="relative bg-cream rounded-3xl shadow-2xl border border-beige/50 max-w-4xl w-full max-h-[85vh] flex flex-col"
+            className={`relative bg-cream rounded-3xl shadow-2xl border border-beige/50 max-w-4xl w-full max-h-[85vh] flex flex-col ${containerClassName || ''}`}
             style={{ zIndex: 100 }}
           >            <button
               onClick={onClose}

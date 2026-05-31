@@ -1,41 +1,44 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { cn } from '@/lib/utils';
-import Modal from '@/components/Modal';
+import React, { useState } from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
+import Modal from "@/components/Modal";
 
 const images = [
   {
-    src: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1974&auto=format&fit=crop',
-    alt: 'Coffee cup on table',
+    src: '/images/Chicken Popper Fries.jpeg',
+    alt: 'Crispy Chicken Popper Fries',
     span: 'md:col-span-1 md:row-span-2',
   },
   {
-    src: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=1974&auto=format&fit=crop',
-    alt: 'Coffee beans',
+    src: '/images/Lasagna.jpeg',
+    alt: 'Hearty Beef Lasagna',
     span: 'md:col-span-2 md:row-span-1',
   },
   {
-    src: 'https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=2073&auto=format&fit=crop',
-    alt: 'Barista working',
+    src: '/images/Pork Sisig.jpeg',
+    alt: 'Sizzling Pork Sisig',
     span: 'md:col-span-1 md:row-span-1',
   },
   {
-    src: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2070&auto=format&fit=crop',
-    alt: 'Shop interior',
+    src: '/images/Pansit Bihin.jpeg',
+    alt: 'Traditional Pansit Bihon',
     span: 'md:col-span-1 md:row-span-1',
   },
   {
-    src: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=2070&auto=format&fit=crop',
-    alt: 'Coffee art',
+    src: '/images/Spaghetti Carbonara.jpeg',
+    alt: 'Creamy Spaghetti Carbonara',
     span: 'md:col-span-2 md:row-span-1',
   },
 ];
 
 const Gallery = () => {
-  const [selectedImage, setSelectedImage] = useState<{src: string, alt: string} | null>(null);
+  const [selectedImage, setSelectedImage] = useState<{
+    src: string;
+    alt: string;
+  } | null>(null);
 
   return (
     <section className="py-24 bg-cream">
@@ -52,7 +55,8 @@ const Gallery = () => {
               Moments at Aura
             </motion.h2>
             <p className="text-warm-black/60 max-w-lg">
-              A glimpse into our sanctuary where coffee meets community and creativity.
+              A glimpse into our sanctuary where coffee meets community and
+              creativity.
             </p>
           </div>
           <motion.button
@@ -77,7 +81,7 @@ const Gallery = () => {
               onClick={() => setSelectedImage({ src: img.src, alt: img.alt })}
               className={cn(
                 "relative overflow-hidden rounded-3xl group shadow-sm cursor-pointer",
-                img.span
+                img.span,
               )}
             >
               <Image
@@ -99,10 +103,10 @@ const Gallery = () => {
         <Modal isOpen={!!selectedImage} onClose={() => setSelectedImage(null)}>
           <div className="relative w-full h-auto flex flex-col items-center">
             <div className="relative aspect-video w-full overflow-hidden rounded-2xl">
-              <Image 
-                src={selectedImage?.src || ''} 
-                alt={selectedImage?.alt || 'Gallery image'} 
-                fill 
+              <Image
+                src={selectedImage?.src || ""}
+                alt={selectedImage?.alt || "Gallery image"}
+                fill
                 sizes="100vw"
                 className="object-contain bg-soft-white"
               />
