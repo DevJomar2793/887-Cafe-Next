@@ -17,7 +17,7 @@ export default function DashboardPage() {
   const [isNavOpen, setIsNavOpen] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [dateRange, setDateRange] = useState("7days");
-  const [statusFilter, setStatusFilter] = useState("all");
+  const [statusFilter] = useState("all");
   const [orders, setOrders] = useState<RecentOrder[]>([]);
 
   //Data is not displaying, Lets fix later

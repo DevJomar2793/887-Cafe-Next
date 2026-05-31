@@ -64,6 +64,7 @@ const Modal: React.FC<ModalProps> = ({
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
@@ -128,5 +129,3 @@ const Modal: React.FC<ModalProps> = ({
 };
 
 export default Modal;
-
-//LETS FIX MODAL TOMORROW

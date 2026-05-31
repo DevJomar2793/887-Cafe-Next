@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from "next/image";
 import { motion, AnimatePresence } from 'framer-motion';
 import { Minus, Plus, Trash2, ShoppingBag, Coffee } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
@@ -120,10 +121,12 @@ export default function OrderPage() {
                     className="bg-soft-white p-4 rounded-3xl border border-beige/50 shadow-sm hover:shadow-xl transition-all duration-300 flex gap-4 group"
                   >
                     <div className="relative w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0">
-                      <img 
+                      <Image 
                         src={item.image} 
                         alt={item.name} 
                         className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500" 
+                        width={96}
+                        height={96}
                       />
                     </div>
                     <div className="flex-1 flex flex-col justify-between">

@@ -53,7 +53,7 @@ const FeedbackForm = () => {
             viewport={{ once: true }}
             className="text-warm-black/60 max-w-2xl mx-auto"
           >
-            We'd love to hear your thoughts on our service and brews. Your feedback helps us grow.
+            We&apos;d love to hear your thoughts on our service and brews. Your feedback helps us grow.
           </motion.p>
         </div>
 

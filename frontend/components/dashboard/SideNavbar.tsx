@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { User, LogOut, Settings, LayoutDashboard, ChevronRight } from 'lucide-react';
+import { LogOut, Settings, LayoutDashboard, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface SideNavbarProps {
@@ -54,9 +55,11 @@ const SideNavbar = ({ isOpen, setIsOpen }: SideNavbarProps) => {
         <div className="p-6 border-b border-beige">
           <div className="flex items-center gap-4 mb-6">
             <div className="relative">
-              <img 
+              <Image
                 src={user.avatar} 
                 alt="User Avatar" 
+                width={48}
+                height={48}
                 className="w-12 h-12 rounded-full object-cover border-2 border-coffee"
               />
               <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full" />

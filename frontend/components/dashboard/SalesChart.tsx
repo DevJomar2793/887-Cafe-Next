@@ -11,12 +11,12 @@ import {
   ResponsiveContainer 
 } from 'recharts';
 import { TrendingUp } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 interface SalesChartProps {
   data: { date: string; amount: number }[];
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
     return (

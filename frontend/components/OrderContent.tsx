@@ -3,15 +3,11 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Minus, Plus, Trash2, ShoppingBag, Coffee } from "lucide-react";
-import { useCart } from "@/context/CartContext";
+import Image from "next/image";
 import { menuItems } from "@/lib/data";
 import { showNotification } from "@/components/NotificationManager";
 
-interface OrderContentProps {
-  onClose: () => void;
-}
-
-export default function OrderContent({ onClose }: OrderContentProps) {
+export default function OrderContent() {
   const {
     cart,
     addToCart,
@@ -112,7 +108,7 @@ export default function OrderContent({ onClose }: OrderContentProps) {
           Craft Your Order
         </h1>
         <p className="text-warm-black/60 text-sm">
-          Select your favorites and we'll have them ready for you.
+          Select your favorites and we&apos;ll have them ready for you.
         </p>
       </header>
 
@@ -155,9 +151,11 @@ export default function OrderContent({ onClose }: OrderContentProps) {
                   className="bg-white p-3 rounded-2xl border border-beige/30 shadow-sm flex gap-3 group transition-all duration-300 hover:shadow-md hover:border-coffee/20"
                 >
                   <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 shadow-inner">
-                    <img
+                    <Image
                       src={item.image}
                       alt={item.name}
+                      width={64}
+                      height={64}
                       className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
                     />
                   </div>

@@ -4,13 +4,9 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { menuItems, menuCategories } from "@/lib/data";
-import { useCart } from "@/context/CartContext";
-import { Plus } from "lucide-react";
-import { showNotification } from "@/components/NotificationManager";
 
 const Menu = () => {
-  const { addToCart } = useCart();
-  const [selectedCategory, setSelectedCategory] = useState("All");
+    const [selectedCategory, setSelectedCategory] = useState("All");
 
   const filteredItems =
     selectedCategory === "All"

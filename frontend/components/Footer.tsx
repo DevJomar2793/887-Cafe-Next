@@ -10,7 +10,6 @@ import {
   MapPin,
   Phone,
   Mail,
-  Coffee,
 } from "lucide-react";
 
 export default function Footer() {
