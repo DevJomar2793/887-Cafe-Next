@@ -138,7 +138,7 @@ export default function OrderContent() {
             </div>
           </div>
 
-          <div className="flex-1 overflow-y-auto pr-2 space-y-4 scrollbar-thin scrollbar-thumb-beige scrollbar-track-transparent">
+          <div className="flex-1 overflow-y-auto pr-2 space-y-4 scrollbar-thin scrollbar-thumb-coffee scrollbar-track-beige">
             <AnimatePresence mode="popLayout">
               {filteredItems.map((item) => (
                 <motion.div
