@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
+import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { X } from "lucide-react";
 
 interface ModalProps {
   isOpen: boolean;
@@ -22,17 +22,17 @@ const modalVariants = {
     scale: 1,
     transition: {
       duration: 0.3,
-      ease: 'easeOut'
-    }
+      ease: "easeOut",
+    },
   },
   exit: {
     opacity: 0,
     scale: 0.95,
     transition: {
       duration: 0.2,
-      ease: 'easeIn'
-    }
-  }
+      ease: "easeIn",
+    },
+  },
 };
 
 const overlayVariants = {
@@ -43,19 +43,24 @@ const overlayVariants = {
     opacity: 1,
     transition: {
       duration: 0.3,
-      ease: 'easeOut'
-    }
+      ease: "easeOut",
+    },
   },
   exit: {
     opacity: 0,
     transition: {
       duration: 0.2,
-      ease: 'easeIn'
-    }
-  }
+      ease: "easeIn",
+    },
+  },
 };
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, containerClassName }) => {
+const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  children,
+  containerClassName,
+}) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -64,22 +69,22 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, containerClass
 
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && isOpen) {
+      if (event.key === "Escape" && isOpen) {
         onClose();
       }
     };
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
   }, [isOpen, onClose]);
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     };
   }, [isOpen]);
 
@@ -102,24 +107,26 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, containerClass
             initial="hidden"
             animate="visible"
             exit="exit"
-            className={`relative bg-cream rounded-3xl shadow-2xl border border-beige/50 max-w-4xl w-full max-h-[85vh] flex flex-col ${containerClassName || ''}`}
+            className={`relative bg-cream rounded-3xl shadow-2xl border border-beige/50 max-w-4xl w-full max-h-[85vh] flex flex-col ${containerClassName || ""}`}
             style={{ zIndex: 100 }}
-          >            <button
+          >
+            {" "}
+            <button
               onClick={onClose}
               className="absolute top-4 right-4 text-warm-black/50 hover:text-coffee transition-colors"
               aria-label="Close modal"
             >
               <X className="w-6 h-6" />
             </button>
-            <div className="flex-1 overflow-y-auto">
-              {children}
-            </div>
+            <div className="flex-1 overflow-hidden">{children}</div>
           </motion.div>
         </div>
       )}
     </AnimatePresence>,
-    document.body
+    document.body,
   );
 };
 
 export default Modal;
+
+//LETS FIX MODAL TOMORROW
