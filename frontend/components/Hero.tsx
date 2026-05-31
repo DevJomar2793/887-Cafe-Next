@@ -15,15 +15,15 @@ const Hero = () => {
       {/* Background Image with Blur */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2070&auto=format&fit=crop"
+          src="/images/887bg.jpg"
           alt="Coffee Shop Background"
           fill
           sizes="100vw"
-          className="object-cover blur-sm scale-105"
+          className="object-cover"
           priority
         />
         {/* Overlay to maintain brand colors and readability */}
-        <div className="absolute inset-0 bg-cream/80 backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-cream/60" />
       </div>
 
       {/* Background abstract shapes for extra depth */}
@@ -51,11 +51,17 @@ const Hero = () => {
             sanctuary. Where every cup tells a story of passion and precision.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="#full-menu" className="group bg-coffee text-cream px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2 hover:bg-coffee-light transition-all shadow-xl hover:shadow-2xl active:scale-95">
+            <Link
+              href="#full-menu"
+              className="group bg-coffee text-cream px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2 hover:bg-coffee-light transition-all shadow-xl hover:shadow-2xl active:scale-95"
+            >
               Explore Menu
               <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
-            <Link href="#about" className="px-8 py-4 rounded-full font-bold border-2 border-coffee/20 text-coffee hover:bg-beige transition-all active:scale-95">
+            <Link
+              href="#about"
+              className="px-8 py-4 rounded-full font-bold border-2 border-coffee/20 text-coffee hover:bg-beige transition-all active:scale-95"
+            >
               Our Story
             </Link>
           </div>

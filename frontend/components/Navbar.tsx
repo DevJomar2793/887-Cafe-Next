@@ -3,13 +3,14 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Coffee, Menu, X } from "lucide-react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Modal from "@/components/Modal";
 import OrderContent from "@/components/OrderContent";
 import { useCart } from "@/context/CartContext";
 
-const Navbar = () => {
+export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
@@ -75,8 +76,14 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link href="#home" className="flex items-center gap-2 group">
-          <div className="bg-coffee p-2 rounded-xl group-hover:rotate-12 transition-transform duration-300">
-            <Coffee className="text-cream w-6 h-6" />
+          <div className="relative w-10 h-10 overflow-hidden rounded-xl group-hover:rotate-12 transition-transform duration-300">
+            <Image
+              src="/images/logo.jpg"
+              alt="887 Cafe Logo"
+              width={50}
+              height={50}
+              className="object-cover"
+            />
           </div>
           <span className="font-serif text-2xl font-bold tracking-tight text-coffee">
             887
@@ -188,6 +195,4 @@ const Navbar = () => {
       </Modal>
     </nav>
   );
-};
-
-export default Navbar;
+}
