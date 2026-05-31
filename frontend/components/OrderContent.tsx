@@ -106,7 +106,7 @@ export default function OrderContent({ onClose }: OrderContentProps) {
   }
 
   return (
-    <div className="flex flex-col h-full max-h-full p-8">
+    <div className="flex flex-col h-full max-h-full p-8 overflow-hidden">
       <header className="text-center mb-8 shrink-0">
         <h1 className="text-3xl font-serif font-bold text-coffee mb-2">
           Craft Your Order
@@ -116,9 +116,9 @@ export default function OrderContent({ onClose }: OrderContentProps) {
         </p>
       </header>
 
-      <div className="grid md:grid-cols-[1.6fr_1fr] gap-8 flex-1 md:overflow-hidden min-h-0">
+      <div className="flex flex-col md:flex-row gap-8 flex-1 overflow-hidden min-h-0">
         {/* Menu Section */}
-        <div className="flex flex-col md:h-full space-y-6 md:overflow-hidden">
+        <div className="flex flex-col flex-1 space-y-6 overflow-hidden">
           <div className="shrink-0">
             <h2 className="text-xl font-serif font-bold text-coffee flex items-center gap-2 mb-4">
               <Coffee className="w-5 h-5" /> Our Menu
@@ -142,7 +142,7 @@ export default function OrderContent({ onClose }: OrderContentProps) {
             </div>
           </div>
 
-          <div className="flex-1 overflow-y-auto pr-2 space-y-4 scrollbar-thin scrollbar-thumb-beige scrollbar-track-transparent">
+          <div className="flex-1 overflow-y-auto pr-2 space-y-4 scrollbar-thin scrollbar-thumb-coffee scrollbar-track-beige">
             <AnimatePresence mode="popLayout">
               {filteredItems.map((item) => (
                 <motion.div
@@ -201,7 +201,7 @@ export default function OrderContent({ onClose }: OrderContentProps) {
         </div>
 
         {/* Order Summary Section */}
-        <div className="flex flex-col h-full space-y-6 overflow-hidden bg-soft-white/50 backdrop-blur-md rounded-3xl border border-white/20 p-6 shadow-sm">
+        <div className="flex flex-col md:w-1/3 h-full space-y-6 overflow-hidden bg-soft-white/50 backdrop-blur-md rounded-3xl border border-white/20 p-6 shadow-sm">
           <h2 className="text-xl font-serif font-bold text-coffee flex items-center gap-2 shrink-0">
             <ShoppingBag className="w-5 h-5" /> Your Order
           </h2>
