@@ -13,3 +13,14 @@ class OrderModel(Base):
     status = Column(String, default="Pending")
     order_time = Column(String)
     created_at = Column(DateTime, server_default=func.now())
+
+
+class MenuItemModel(Base):
+    __tablename__ = "menu_items"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    description = Column(String)
+    price = Column(Float)
+    image = Column(String)
+    category = Column(String)

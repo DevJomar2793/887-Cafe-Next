@@ -2,6 +2,8 @@ from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
 
+
+##################################### ORDERS LIST #####################################
 class OrderBase(BaseModel):
     id: Optional[int] = None
     order_number: Optional[str] = None
@@ -33,6 +35,24 @@ class OrderUpdate(BaseModel):
 class OrderDelete(BaseModel):
     message: str
     order: OrderResponse
+
+
+##################################### MENU LIST #####################################
+class MenuItemBase(BaseModel):
+    name: str
+    description: str
+    price: float
+    image: str
+    category: str
+
+class MenuItemCreate(MenuItemBase):
+    pass
+
+class MenuItemResponse(MenuItemBase):
+    id: int
+
+    class Config:
+        from_attributes = True
 
 class Config:
     from_attributes = True

@@ -1,6 +1,7 @@
 import { RecentOrder } from "./dashboard-data";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+//LETS WORK ON THIS LATER
+const API_BASE_URL = "http://localhost:8000";
 
 export async function fetchRecentOrders(): Promise<RecentOrder[]> {
   try {
@@ -10,8 +11,6 @@ export async function fetchRecentOrders(): Promise<RecentOrder[]> {
         "Content-Type": "application/json",
       },
     });
-
-    console.log("response: ", response);
 
     if (!response.ok) {
       throw new Error(`API error: ${response.status} ${response.statusText}`);
