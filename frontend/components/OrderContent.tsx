@@ -271,7 +271,7 @@ export default function OrderContent({ onClose }: OrderContentProps) {
                   whileHover={{ y: -4 }}
                   className="bg-white p-4 rounded-3xl border border-beige/40 shadow-sm flex gap-4 group transition-all duration-300 hover:shadow-md hover:border-coffee/20"
                 >
-                  <div className="relative w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 shadow-inner">
+                  <div className="relative w-20 h-20 rounded-2xl overflow-hidden shrink-0 shadow-inner">
                     <img
                       src={item.image}
                       alt={item.name}
