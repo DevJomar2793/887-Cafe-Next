@@ -56,3 +56,8 @@ class MenuItemResponse(MenuItemBase):
 
 class Config:
     from_attributes = True
+
+
+##################################### PAYMENT LIST #####################################
+class PaymentSessionRequest(BaseModel):
+    order_id: int

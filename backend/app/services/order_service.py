@@ -86,6 +86,21 @@ def delete_order_data(id: int):
         return order
     finally:
         db.close()
+
+def update_order_status_by_number(order_number: str, status: str):
+    """Updates the status of an order based on its unique order number."""
+    db = SessionLocal()
+    try:
+        order = db.query(OrderModel).filter(OrderModel.order_number == order_number).first()
+        if not order:
+            print(f"Order {order_number} not found for status update.")
+            return None
+        order.status = status
+        db.commit()
+        db.refresh(order)
+        return order
+    finally:
+        db.close()
     
     
     
