@@ -5,7 +5,7 @@ const API_BASE_URL = "http://localhost:8000";
 
 export async function fetchRecentOrders(): Promise<RecentOrder[]> {
   try {
-    const response = await fetch(`${API_BASE_URL}/orders`, {
+    const response = await fetch(`${API_BASE_URL}/api/orderlist`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

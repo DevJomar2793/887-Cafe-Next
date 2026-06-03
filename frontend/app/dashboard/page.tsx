@@ -20,12 +20,19 @@ export default function DashboardPage() {
   const [statusFilter, setStatusFilter] = useState("all");
   const [orders, setOrders] = useState<RecentOrder[]>([]);
 
-  //Data is not displaying, Lets fix later
   useEffect(() => {
     const loadData = async () => {
       try {
         const fetchedOrders = await fetchRecentOrders();
-        setOrders(fetchedOrders);
+
+        const mappedOrders = fetchedOrders.map((order: any) => ({
+          id: order.order_number || order.id.toString(),
+          customer: order.customer_name,
+          amount: order.total_amount,
+          status: order.status,
+          time: order.order_time,
+        }));
+        setOrders(mappedOrders);
       } catch (error) {
         console.error("Failed to fetch orders", error);
       } finally {

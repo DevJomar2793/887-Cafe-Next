@@ -19,8 +19,10 @@ const RecentOrders = ({
 }: RecentOrdersProps) => {
   const filteredOrders = orders.filter((order) => {
     const matchesSearch =
-      order.customer.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      order.id.toLowerCase().includes(searchQuery.toLowerCase());
+      (order.customer?.toLowerCase().includes(searchQuery.toLowerCase()) ??
+        false) ||
+      (order.id?.toString().toLowerCase().includes(searchQuery.toLowerCase()) ??
+        false);
     const matchesStatus =
       statusFilter === "all" || order.status === statusFilter;
     return matchesSearch && matchesStatus;
@@ -68,7 +70,7 @@ const RecentOrders = ({
                   </td>
                   <td className="py-3 text-warm-black/80">{order.customer}</td>
                   <td className="py-3 font-bold text-coffee">
-                    ${order.amount.toFixed(2)}
+                    ${order.amount?.toFixed(2)}
                   </td>
                   <td className="py-3">
                     <span
@@ -107,3 +109,5 @@ const RecentOrders = ({
 };
 
 export default RecentOrders;
+
+//WE NEED TO DISPLAY DATA FROM API
