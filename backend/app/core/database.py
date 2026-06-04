@@ -1,11 +1,12 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-import os
 from dotenv import load_dotenv
+import os
 
 # Load environment variables
 load_dotenv()
+
 
 # Get the absolute path to the directory where this file is located
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -14,6 +15,8 @@ DEFAULT_SQLALCHEMY_DATABASE_URL = f"sqlite:///{DEFAULT_DB_PATH}"
 
 # Use DATABASE_URL from .env or fallback to default
 SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", DEFAULT_SQLALCHEMY_DATABASE_URL)
+
+print(SQLALCHEMY_DATABASE_URL)
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
