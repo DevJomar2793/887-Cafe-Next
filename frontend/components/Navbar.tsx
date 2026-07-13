@@ -1,198 +1,131 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { Coffee, Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "@/lib/utils";
-import Modal from "@/components/Modal";
-import OrderContent from "@/components/OrderContent";
+import Link from "next/link";
+import { Menu, ShoppingBag, X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useCart } from "@/context/CartContext";
+import { cn } from "@/lib/utils";
+
+const navLinks = [
+  { label: "Menu", href: "#menu" },
+  { label: "Our story", href: "#about" },
+  { label: "Visit", href: "#visit" },
+];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+  const [isOpen, setIsOpen] = useState(false);
   const { cart } = useCart();
-
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 16);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
-    const sectionIds = ["home", "menu", "about", "testimonials", "contact"];
-    const observerOptions = {
-      root: null,
-      rootMargin: "-40% 0px -40% 0px",
-      threshold: 0,
+    if (!isOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsOpen(false);
     };
-
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(
-      observerCallback,
-      observerOptions,
-    );
-
-    sectionIds.forEach((id) => {
-      const element = document.getElementById(id);
-      if (element) observer.observe(element);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "Menu", href: "#menu" },
-    { name: "About", href: "#about" },
-    { name: "Testimonials", href: "#testimonials" },
-    { name: "Location", href: "#contact" },
-    { href: "/dashboard" },
-  ];
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [isOpen]);
 
   return (
-    <nav
+    <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-6 py-4",
-        isScrolled
-          ? "bg-soft-white/80 backdrop-blur-md shadow-sm py-3"
-          : "bg-transparent",
+        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        isScrolled ? "bg-soft-white/95 shadow-sm backdrop-blur-xl" : "bg-transparent",
       )}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <Link href="#home" className="flex items-center gap-2 group">
-          <div className="relative w-10 h-10 overflow-hidden rounded-xl group-hover:rotate-12 transition-transform duration-300">
-            <Image
-              src="/images/logo.jpg"
-              alt="887 Cafe Logo"
-              width={50}
-              height={50}
-              className="object-cover"
-            />
-          </div>
-          <span className="font-serif text-2xl font-bold tracking-tight text-coffee">
-            887
-          </span>
+      <nav
+        aria-label="Main navigation"
+        className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8"
+      >
+        <Link href="#home" className="flex items-center gap-3" aria-label="887 Cafe home">
+          <Image
+            src="/images/logo.jpg"
+            alt=""
+            width={46}
+            height={46}
+            className="h-11 w-11 rounded-full object-cover ring-2 ring-soft-white"
+          />
+          <span className="text-lg font-black tracking-[0.14em] text-coffee">887 CAFE</span>
         </Link>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-1">
-          {navLinks.map((link) => {
-            const isActive = activeSection === link.href?.replace("#", "");
-            return (
-              <Link
-                key={link.name || link.href}
-                href={link.href}
-                className={cn(
-                  "relative px-4 py-2 text-sm font-medium transition-colors duration-300",
-                  isActive
-                    ? "text-coffee"
-                    : "text-warm-black/60 hover:text-coffee",
-                )}
-              >
-                {link.name}
-                {isActive && (
-                  <motion.div
-                    layoutId="nav-pill"
-                    className="absolute inset-0 bg-yellow-400/80 rounded-full -z-10"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
-              </Link>
-            );
-          })}
-          <div className="ml-4">
-            <button
-              onClick={() => setIsOrderModalOpen(true)}
-              className="bg-coffee text-cream px-6 py-2.5 rounded-full font-medium hover:bg-coffee-light transition-all shadow-md hover:shadow-lg active:scale-95 relative"
+        <div className="hidden items-center gap-8 md:flex">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-sm font-bold text-coffee/70 transition-colors hover:text-orange"
             >
-              Order Now
-              {totalItems > 0 && (
-                <motion.span
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  className="absolute -top-1 -right-1 bg-beige text-coffee text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-coffee shadow-sm"
-                >
-                  {totalItems}
-                </motion.span>
-              )}
-            </button>
-          </div>
+              {link.label}
+            </Link>
+          ))}
+          <Link
+            href="/order"
+            className="relative inline-flex min-h-11 items-center gap-2 rounded-full bg-orange px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-orange/20 transition hover:bg-orange-dark"
+          >
+            <ShoppingBag size={17} aria-hidden="true" />
+            Order now
+            {itemCount > 0 && (
+              <span className="flex min-w-5 items-center justify-center rounded-full bg-white px-1.5 py-0.5 text-[11px] text-orange">
+                {itemCount}
+              </span>
+            )}
+          </Link>
         </div>
 
-        {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden text-warm-black"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          type="button"
+          className="flex h-11 w-11 items-center justify-center rounded-full bg-soft-white text-coffee shadow-sm md:hidden"
+          aria-expanded={isOpen}
+          aria-controls="mobile-navigation"
+          aria-label={isOpen ? "Close navigation" : "Open navigation"}
+          onClick={() => setIsOpen((value) => !value)}
         >
-          {isMobileMenuOpen ? <X /> : <Menu />}
+          {isOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
         </button>
-      </div>
+      </nav>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
-        {isMobileMenuOpen && (
+        {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            id="mobile-navigation"
+            initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="md:hidden absolute top-full left-0 right-0 bg-soft-white border-t border-beige p-6 flex flex-col gap-4"
+            exit={{ opacity: 0, y: -12 }}
+            className="border-t bg-soft-white px-5 pb-6 pt-3 shadow-xl md:hidden"
           >
-            {navLinks.map((link) => {
-              const isActive = activeSection === link.href?.replace("#", "");
-              return (
+            <div className="mx-auto flex max-w-7xl flex-col">
+              {navLinks.map((link) => (
                 <Link
-                  key={link.name || link.href}
+                  key={link.href}
                   href={link.href}
-                  className={cn(
-                    "text-lg font-medium transition-colors py-2 px-4 rounded-xl",
-                    isActive ? "bg-beige text-coffee" : "text-warm-black/70",
-                  )}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={() => setIsOpen(false)}
+                  className="flex min-h-12 items-center border-b text-base font-bold text-coffee"
                 >
-                  {link.name}
+                  {link.label}
                 </Link>
-              );
-            })}
-            <button
-              onClick={() => {
-                setIsOrderModalOpen(true);
-                setIsMobileMenuOpen(false);
-              }}
-              className="bg-coffee text-cream px-6 py-3 rounded-xl font-medium w-full mt-2 relative flex items-center justify-center gap-2"
-            >
-              Order Now
-              {totalItems > 0 && (
-                <span className="bg-beige text-coffee text-xs font-bold px-2 py-0.5 rounded-full border border-coffee/20">
-                  {totalItems} items
-                </span>
-              )}
-            </button>
+              ))}
+              <Link
+                href="/order"
+                onClick={() => setIsOpen(false)}
+                className="mt-5 flex min-h-12 items-center justify-center gap-2 rounded-full bg-orange px-6 font-extrabold text-white"
+              >
+                <ShoppingBag size={18} aria-hidden="true" />
+                Order now {itemCount > 0 ? `(${itemCount})` : ""}
+              </Link>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
-
-      <Modal
-        isOpen={isOrderModalOpen}
-        onClose={() => setIsOrderModalOpen(false)}
-      >
-        <OrderContent onClose={() => setIsOrderModalOpen(false)} />
-      </Modal>
-    </nav>
+    </header>
   );
 }

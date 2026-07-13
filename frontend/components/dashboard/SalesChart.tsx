@@ -11,13 +11,17 @@ import {
   ResponsiveContainer 
 } from 'recharts';
 import { TrendingUp } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 interface SalesChartProps {
   data: { date: string; amount: number }[];
 }
 
-const CustomTooltip = ({ active, payload }: any) => {
+interface TooltipPayload {
+  value: number;
+  payload: { date: string };
+}
+
+const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: TooltipPayload[] }) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-white/90 backdrop-blur-md border border-beige p-3 rounded-2xl shadow-xl">

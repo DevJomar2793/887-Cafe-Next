@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 const Skeleton = ({ className }: { className?: string }) => (
   <div className={cn("bg-beige/30 animate-pulse rounded-xl", className)} />
@@ -74,10 +74,5 @@ const DashboardSkeleton = () => {
     </div>
   );
 };
-
-// Helper for cn since it's used in Skeleton
-function cn(...inputs: any[]) {
-  return inputs.filter(Boolean).join(' ');
-}
 
 export default DashboardSkeleton;

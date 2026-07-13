@@ -1,63 +1,28 @@
-from pydantic import BaseModel
-from typing import List, Optional
-from datetime import datetime
+"""Backward-compatible schema exports.
 
+New code should import from the domain-specific schema modules.
+"""
 
-##################################### ORDERS LIST #####################################
-class OrderBase(BaseModel):
-    id: Optional[int] = None
-    order_number: Optional[str] = None
-    customer_name: str
-    total_amount: float
-    order_time: Optional[str] = None
-    status: Optional[str] = None
+from app.schemas.menu import MenuItemBase, MenuItemCreate, MenuItemResponse
+from app.schemas.orders import (
+    OrderBase,
+    OrderCreate,
+    OrderDelete,
+    OrderMessageResponse,
+    OrderResponse,
+    OrderUpdate,
+)
+from app.schemas.payments import PaymentSessionRequest
 
-class OrderCreate(OrderBase):
-    pass
-
-class OrderResponse(OrderBase):
-    id: int
-    order_number: str
-    customer_name: str
-    total_amount: float
-    order_time: str
-    status: str
-    created_at: Optional[datetime] = None
-
-class OrderMessageResponse(BaseModel):
-    message: str
-    order: OrderResponse
-
-class OrderUpdate(BaseModel):
-    customer_name: str
-    status: str
-
-class OrderDelete(BaseModel):
-    message: str
-    order: OrderResponse
-
-
-##################################### MENU LIST #####################################
-class MenuItemBase(BaseModel):
-    name: str
-    description: str
-    price: float
-    image: str
-    category: str
-
-class MenuItemCreate(MenuItemBase):
-    pass
-
-class MenuItemResponse(MenuItemBase):
-    id: int
-
-    class Config:
-        from_attributes = True
-
-class Config:
-    from_attributes = True
-
-
-##################################### PAYMENT LIST #####################################
-class PaymentSessionRequest(BaseModel):
-    order_id: int
+__all__ = [
+    "MenuItemBase",
+    "MenuItemCreate",
+    "MenuItemResponse",
+    "OrderBase",
+    "OrderCreate",
+    "OrderDelete",
+    "OrderMessageResponse",
+    "OrderResponse",
+    "OrderUpdate",
+    "PaymentSessionRequest",
+]

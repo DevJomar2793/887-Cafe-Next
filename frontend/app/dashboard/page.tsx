@@ -9,7 +9,7 @@ import DashboardSkeleton from "@/components/dashboard/DashboardSkeleton";
 import { RecentOrder } from "@/lib/dashboard-data";
 import { fetchRecentOrders } from "@/lib/api";
 import { LayoutDashboard, ArrowLeft } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export default function DashboardPage() {
@@ -17,7 +17,7 @@ export default function DashboardPage() {
   const [isNavOpen, setIsNavOpen] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [dateRange, setDateRange] = useState("7days");
-  const [statusFilter, setStatusFilter] = useState("all");
+  const statusFilter = "all";
   const [orders, setOrders] = useState<RecentOrder[]>([]);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function DashboardPage() {
       try {
         const fetchedOrders = await fetchRecentOrders();
 
-        const mappedOrders = fetchedOrders.map((order: any) => ({
+        const mappedOrders = fetchedOrders.map((order) => ({
           id: order.order_number || order.id.toString(),
           customer: order.customer_name,
           amount: order.total_amount,
@@ -45,7 +45,7 @@ export default function DashboardPage() {
 
   if (isLoading) return <DashboardSkeleton />;
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -56,7 +56,7 @@ export default function DashboardPage() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
