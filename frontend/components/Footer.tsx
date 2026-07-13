@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
+import { Reveal } from "@/components/motion/MotionPrimitives";
 
 const footerLinks = [
   { label: "Home", href: "#home" },
@@ -14,7 +15,7 @@ export default function Footer() {
   return (
     <footer className="bg-warm-black py-12 text-soft-white sm:py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <div className="flex flex-col justify-between gap-10 border-b border-white/10 pb-10 md:flex-row md:items-end">
+        <Reveal className="flex flex-col justify-between gap-10 border-b border-white/10 pb-10 md:flex-row md:items-end" distance={16}>
           <div className="max-w-sm">
             <Link href="#home" className="inline-flex items-center gap-3" aria-label="887 Cafe home">
               <Image src="/images/logo.jpg" alt="" width={52} height={52} className="h-13 w-13 rounded-full object-cover" />
@@ -27,11 +28,11 @@ export default function Footer() {
               <Link key={link.href} href={link.href} className="text-sm font-bold text-white/65 transition hover:text-orange">{link.label}</Link>
             ))}
           </nav>
-        </div>
-        <div className="flex flex-col justify-between gap-2 pt-7 text-sm text-white/40 sm:flex-row">
+        </Reveal>
+        <Reveal className="flex flex-col justify-between gap-2 pt-7 text-sm text-white/40 sm:flex-row" distance={12} delay={0.08}>
           <p>© 2026 887 Cafe. All rights reserved.</p>
           <p>{siteConfig.address ?? "Location details coming soon"}</p>
-        </div>
+        </Reveal>
       </div>
     </footer>
   );
