@@ -1,65 +1,47 @@
-'use client';
+import Link from "next/link";
+import { ArrowRight, MapPin, ShoppingBag } from "lucide-react";
+import { siteConfig } from "@/lib/site-config";
 
-import React from 'react';
-import { motion } from 'framer-motion';
+export default function MapSection() {
+  const hasLocation = Boolean(siteConfig.address && siteConfig.mapsUrl);
 
-const MapSection = () => {
   return (
-    <section id="contact" className="py-24 bg-soft-white">
-      <div className="max-w-7xl mx-auto px-6 text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-serif font-bold text-coffee mb-6"
-        >
-          Find Our Cozy Spot
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="text-warm-black/60 max-w-2xl mx-auto mb-12"
-        >
-          Visit us and experience the perfect blend of rich aroma and warm ambiance.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="relative w-full h-[400px] md:h-[500px] rounded-3xl overflow-hidden shadow-xl border border-beige"
-        >
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.2198909477024!2d-122.41941568468165!3d37.77492947975932!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085808b2c2d2d2d%3A0x6d5e1f1c2d3a4b5c!2sGolden%20Gate%20Bridge!5e0!3m2!1sen!2sus!4v1678901234567!5m2!1sen!2sus"
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            allowFullScreen={false}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            title="Our Location"
-          ></iframe>
-        </motion.div>
-
-        <motion.a
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-          href="https://maps.app.goo.gl/YourGoogleMapsLinkHere" // TODO: Replace with actual Google Maps link
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-12 inline-flex items-center justify-center px-8 py-4 bg-coffee text-cream rounded-full font-bold hover:bg-coffee-light transition-all shadow-lg active:scale-95"
-        >
-          Get Directions
-        </motion.a>
+    <section id="visit" className="bg-soft-white py-20 sm:py-28">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <div className="overflow-hidden rounded-[2rem] bg-orange text-white shadow-xl sm:rounded-[3rem]">
+          <div className="grid lg:grid-cols-[1.1fr_.9fr]">
+            <div className="p-7 sm:p-12 lg:p-16">
+              <p className="text-sm font-black uppercase tracking-[0.2em] text-white/70">Plan your 887 break</p>
+              <h2 className="mt-3 max-w-xl text-4xl font-bold leading-tight sm:text-6xl">We&apos;ll save you a good bite.</h2>
+              <p className="mt-5 max-w-xl text-lg leading-8 text-white/80">
+                Browse the complete menu and send your pickup order before you head over.
+              </p>
+              <Link href="/order" className="mt-8 inline-flex min-h-14 items-center gap-2 rounded-full bg-coffee px-7 font-extrabold text-white transition hover:bg-warm-black">
+                Order for pickup <ArrowRight size={19} aria-hidden="true" />
+              </Link>
+            </div>
+            <div className="flex min-h-[320px] flex-col justify-between bg-coffee p-7 sm:p-12 lg:p-14">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-orange">
+                {hasLocation ? <MapPin size={28} aria-hidden="true" /> : <ShoppingBag size={28} aria-hidden="true" />}
+              </div>
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.2em] text-orange">Visit us</p>
+                {hasLocation ? (
+                  <>
+                    <p className="mt-3 text-2xl font-bold">{siteConfig.address}</p>
+                    <a href={siteConfig.mapsUrl ?? "#"} target="_blank" rel="noreferrer" className="mt-5 inline-flex items-center gap-2 font-bold text-cream hover:text-orange">Get directions <ArrowRight size={17} /></a>
+                  </>
+                ) : (
+                  <>
+                    <p className="mt-3 text-2xl font-bold">Location details coming soon.</p>
+                    <p className="mt-3 max-w-sm leading-7 text-cream/65">We&apos;re preparing the latest visit information. You can still place a pickup order online.</p>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
-};
-
-export default MapSection;
+}

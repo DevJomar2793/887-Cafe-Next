@@ -1,89 +1,59 @@
-"use client";
-
-import React from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { ArrowDown, ArrowUpRight, Clock3 } from "lucide-react";
 
-const Hero = () => {
+export default function Hero() {
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden"
-    >
-      {/* Background Image with Blur */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/images/887bg.jpg"
-          alt="Coffee Shop Background"
-          fill
-          sizes="100vw"
-          className="object-cover"
-          priority
-        />
-        {/* Overlay to maintain brand colors and readability */}
-        <div className="absolute inset-0 bg-cream/60" />
-      </div>
-
-      {/* Background abstract shapes for extra depth */}
-      <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-beige rounded-full blur-3xl opacity-50 z-0" />
-      <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-coffee/5 rounded-full blur-3xl opacity-30 z-0" />
-
-      <div className="max-w-7xl mx-auto px-6 flex flex-col items-center text-center relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="max-w-3xl"
-        >
-          <span className="inline-block px-4 py-1.5 bg-coffee/10 text-coffee rounded-full text-sm font-semibold mb-6 tracking-wide uppercase">
-            Est. 2026 • Premium Roast
-          </span>
-          <h1 className="text-5xl md:text-8xl font-serif font-bold text-coffee leading-[1.1] mb-6">
-            Fresh Coffee, <br />
-            <span className="text-coffee-light italic font-normal">
-              Warm Moments.
-            </span>
+    <section id="home" className="relative overflow-hidden bg-coffee pt-28 text-soft-white sm:pt-32">
+      <div className="absolute inset-0 opacity-30 [background-image:radial-gradient(circle_at_20%_10%,#c9572d_0,transparent_35%)]" />
+      <div className="relative mx-auto grid min-h-[760px] max-w-7xl items-center gap-12 px-5 pb-16 sm:px-8 lg:grid-cols-[1.05fr_.95fr] lg:pb-20">
+        <div className="max-w-2xl py-8">
+          <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-4 py-2 text-sm font-bold text-cream">
+            <Clock3 size={16} aria-hidden="true" />
+            Made fresh for your next coffee break
+          </div>
+          <h1 className="text-balance text-5xl font-bold leading-[0.98] tracking-[-0.04em] sm:text-7xl lg:text-[5.6rem]">
+            Your cozy pause,
+            <span className="mt-2 block font-sans text-orange">served at 887.</span>
           </h1>
-          <p className="text-lg md:text-xl text-warm-black/80 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Experience the art of handcrafted brewing in our cozy minimalist
-            sanctuary. Where every cup tells a story of passion and precision.
+          <p className="mt-7 max-w-xl text-lg leading-8 text-cream/75 sm:text-xl">
+            Coffee, comfort food, and the kind of atmosphere that makes you want to stay a little longer.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <Link
-              href="#full-menu"
-              className="group bg-coffee text-cream px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2 hover:bg-coffee-light transition-all shadow-xl hover:shadow-2xl active:scale-95"
+              href="/order"
+              className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-orange px-7 font-extrabold text-white transition hover:bg-orange-dark"
             >
-              Explore Menu
-              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              Start an order <ArrowUpRight size={19} aria-hidden="true" />
             </Link>
             <Link
-              href="#about"
-              className="px-8 py-4 rounded-full font-bold border-2 border-coffee/20 text-coffee hover:bg-beige transition-all active:scale-95"
+              href="#menu"
+              className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full border border-white/20 px-7 font-bold text-soft-white transition hover:bg-white/10"
             >
-              Our Story
+              See what&apos;s cooking <ArrowDown size={18} aria-hidden="true" />
             </Link>
           </div>
-        </motion.div>
+        </div>
 
-        {/* Floating badge remains as a nice detail */}
-        {/* <motion.div 
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -bottom-12 right-0 md:right-12 bg-soft-white p-6 rounded-2xl shadow-xl border border-beige flex items-center gap-4 z-20"
-        >
-          <div className="bg-coffee/10 p-3 rounded-xl">
-            <span className="text-3xl">☕</span>
+        <div className="relative mx-auto w-full max-w-[520px] lg:ml-auto">
+          <div className="absolute -left-6 top-10 h-28 w-28 rounded-full bg-orange blur-3xl" />
+          <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-warm-black shadow-2xl sm:rounded-[3rem]">
+            <Image
+              src="/images/887bg.jpg"
+              alt="The Eighty Eight Seven sign inside 887 Cafe"
+              fill
+              priority
+              sizes="(max-width: 1024px) 90vw, 45vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-coffee/70 via-transparent to-transparent" />
+            <div className="absolute inset-x-5 bottom-5 rounded-2xl border border-white/15 bg-coffee/75 p-5 backdrop-blur-md sm:inset-x-7 sm:bottom-7">
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-orange">Eighty Eight Seven</p>
+              <p className="mt-2 text-lg font-bold text-white">A familiar corner for good food and better breaks.</p>
+            </div>
           </div>
-          <div>
-            <p className="font-bold text-coffee">Freshly Brewed</p>
-            <p className="text-xs text-warm-black/50">Every single hour</p>
-          </div>
-        </motion.div> */}
+        </div>
       </div>
     </section>
   );
-};
-
-export default Hero;
+}

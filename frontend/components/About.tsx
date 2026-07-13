@@ -1,82 +1,50 @@
-'use client';
+import Image from "next/image";
+import { Coffee, Heart, Utensils } from "lucide-react";
 
-import React from 'react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { CheckCircle2 } from 'lucide-react';
+const values = [
+  { icon: Coffee, title: "Coffee for every mood", text: "Familiar favorites and non-coffee choices for any kind of break." },
+  { icon: Utensils, title: "More than a quick sip", text: "Comforting pasta, rice meals, and shareable snacks made to satisfy." },
+  { icon: Heart, title: "A place to slow down", text: "An easygoing café experience built around good company and good food." },
+];
 
-const About = () => {
-  const highlights = [
-    'Ethically sourced organic beans',
-    'Expertly roasted in small batches',
-    'Handcrafted by certified baristas',
-    'Cozy community-focused atmosphere',
-  ];
-
+export default function About() {
   return (
-    <section id="about" className="py-24 bg-cream overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="relative"
-          >
-            <div className="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl z-10">
-              <Image
-                src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=2070&auto=format&fit=crop"
-                alt="Barista pouring coffee"
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                priority
-                className="object-cover"
-              />
-            </div>
-            {/* Decorative elements */}
-            <div className="absolute -top-6 -left-6 w-32 h-32 bg-coffee/10 rounded-full blur-2xl" />
-            <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-coffee/5 rounded-full blur-3xl" />
-            <div className="absolute top-1/2 -right-12 w-24 h-24 border-4 border-beige rounded-full hidden md:block" />
-          </motion.div>
+    <section id="about" className="overflow-hidden bg-cream py-20 sm:py-28">
+      <div className="mx-auto grid max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-2 lg:items-center">
+        <div className="relative grid grid-cols-2 gap-4">
+          <div className="relative mt-12 aspect-[3/4] overflow-hidden rounded-[2rem]">
+            <Image src="/images/Pork Sisig.jpeg" alt="Sizzling pork sisig served at 887 Cafe" fill sizes="(max-width: 1024px) 45vw, 24vw" className="object-cover" />
+          </div>
+          <div className="relative aspect-[3/4] overflow-hidden rounded-[2rem]">
+            <Image src="/images/Chicken Popper Fries.jpeg" alt="Chicken popper fries served at 887 Cafe" fill sizes="(max-width: 1024px) 45vw, 24vw" className="object-cover" />
+          </div>
+          <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 rounded-2xl bg-orange px-6 py-4 text-center text-white shadow-xl">
+            <p className="font-serif text-2xl font-bold">887</p>
+            <p className="whitespace-nowrap text-xs font-black uppercase tracking-[0.18em]">Coffee · Food · Comfort</p>
+          </div>
+        </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <span className="text-coffee-light font-bold tracking-widest uppercase text-sm mb-4 block">
-              Our Story
-            </span>
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-coffee mb-6 leading-tight">
-              Crafting Exceptional <br />
-              Coffee Experiences
-            </h2>
-            <p className="text-lg text-warm-black/70 mb-8 leading-relaxed">
-              Founded in 2026, Aura Coffee began with a simple mission: to create a space 
-              where quality coffee meets a peaceful environment. We believe that the perfect 
-              cup of coffee is more than just a drink—it&apos;s a moment of clarity and warmth 
-              in your busy day.
-            </p>
-            
-            <div className="space-y-4 mb-10">
-              {highlights.map((item, index) => (
-                <div key={index} className="flex items-center gap-3">
-                  <CheckCircle2 className="text-coffee w-5 h-5 flex-shrink-0" />
-                  <span className="text-warm-black/80 font-medium">{item}</span>
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.2em] text-orange">The 887 feeling</p>
+          <h2 className="mt-3 text-4xl font-bold leading-tight text-coffee sm:text-6xl">Your neighborhood kind of café.</h2>
+          <p className="mt-6 text-lg leading-8 text-coffee/65">
+            887 Cafe brings together laid-back coffee breaks and satisfying comfort food in one welcoming place. Drop in for a cup, stay for a meal, or order ahead when the day is moving fast.
+          </p>
+          <div className="mt-9 grid gap-5">
+            {values.map(({ icon: Icon, title, text }) => (
+              <div key={title} className="flex gap-4 rounded-2xl border bg-soft-white/60 p-5">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-orange text-white">
+                  <Icon size={20} aria-hidden="true" />
                 </div>
-              ))}
-            </div>
-
-            <button className="px-8 py-4 bg-coffee text-cream rounded-full font-bold hover:bg-coffee-light transition-all shadow-lg active:scale-95">
-              Learn More About Us
-            </button>
-          </motion.div>
+                <div>
+                  <h3 className="font-sans text-base font-black text-coffee">{title}</h3>
+                  <p className="mt-1 text-sm leading-6 text-coffee/60">{text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
   );
-};
-
-export default About;
+}

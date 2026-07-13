@@ -1,85 +1,83 @@
-'use client';
+"use client";
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import type { MenuItem } from '@/lib/data';
+import { createContext, useContext, useEffect, useState } from "react";
+import type { MenuItem } from "@/lib/data";
+import { getLineTotal } from "@/lib/money";
 
-interface CartItem extends MenuItem {
+export interface CartItem extends MenuItem {
   quantity: number;
 }
 
 interface CartContextType {
   cart: CartItem[];
-  addToCart: (drink: MenuItem) => void;
-  removeFromCart: (drinkId: number) => void;
-  updateQuantity: (drinkId: number, quantity: number) => void;
+  addToCart: (item: MenuItem) => void;
+  removeFromCart: (itemId: number) => void;
+  updateQuantity: (itemId: number, quantity: number) => void;
   clearCart: () => void;
   totalPrice: number;
 }
 
+const STORAGE_KEY = "887_cafe_cart";
+const LEGACY_STORAGE_KEY = "aura_cart";
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
-    const savedCart = localStorage.getItem('aura_cart');
-    if (savedCart) {
-      try {
-        setCart(JSON.parse(savedCart));
-      } catch (e) {
-        console.error('Failed to parse cart from localStorage', e);
+    const timer = window.setTimeout(() => {
+      const storedCart = localStorage.getItem(STORAGE_KEY) ?? localStorage.getItem(LEGACY_STORAGE_KEY);
+      if (storedCart) {
+        try {
+          const parsedCart = JSON.parse(storedCart) as CartItem[];
+          if (Array.isArray(parsedCart)) setCart(parsedCart);
+          localStorage.removeItem(LEGACY_STORAGE_KEY);
+        } catch {
+          localStorage.removeItem(STORAGE_KEY);
+          localStorage.removeItem(LEGACY_STORAGE_KEY);
+        }
       }
-    }
+      setIsHydrated(true);
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('aura_cart', JSON.stringify(cart));
-  }, [cart]);
+    if (isHydrated) localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+  }, [cart, isHydrated]);
 
-  const addToCart = (drink: MenuItem) => {
-    setCart((prev) => {
-      const existing = prev.find((item) => item.id === drink.id);
-      if (existing) {
-        return prev.map((item) =>
-          item.id === drink.id ? { ...item, quantity: item.quantity + 1 } : item
-        );
-      }
-      return [...prev, { ...drink, quantity: 1 }];
+  const addToCart = (item: MenuItem) => {
+    setCart((current) => {
+      const existing = current.find((cartItem) => cartItem.id === item.id);
+      return existing
+        ? current.map((cartItem) => cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem)
+        : [...current, { ...item, quantity: 1 }];
     });
   };
 
-  const removeFromCart = (drinkId: number) => {
-    setCart((prev) => prev.filter((item) => item.id !== drinkId));
-  };
+  const removeFromCart = (itemId: number) => setCart((current) => current.filter((item) => item.id !== itemId));
 
-  const updateQuantity = (drinkId: number, quantity: number) => {
+  const updateQuantity = (itemId: number, quantity: number) => {
     if (quantity <= 0) {
-      removeFromCart(drinkId);
+      removeFromCart(itemId);
       return;
     }
-    setCart((prev) =>
-      prev.map((item) => (item.id === drinkId ? { ...item, quantity } : item))
-    );
+    setCart((current) => current.map((item) => item.id === itemId ? { ...item, quantity } : item));
   };
 
   const clearCart = () => setCart([]);
-
-  const totalPrice = cart.reduce((sum, item) => {
-    const priceNum = parseFloat(item.price.replace('$', ''));
-    return sum + priceNum * item.quantity;
-  }, 0);
+  const totalPrice = cart.reduce((total, item) => total + getLineTotal(item), 0);
 
   return (
     <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, clearCart, totalPrice }}>
       {children}
     </CartContext.Provider>
   );
-};
+}
 
-export const useCart = () => {
+export function useCart() {
   const context = useContext(CartContext);
-  if (!context) {
-    throw new Error('useCart must be used within a CartProvider');
-  }
+  if (!context) throw new Error("useCart must be used within a CartProvider");
   return context;
-};
+}

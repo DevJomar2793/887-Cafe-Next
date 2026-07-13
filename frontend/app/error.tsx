@@ -38,7 +38,7 @@ export default function Error({
         
         <p className="text-coffee/70 mb-8 leading-relaxed">
           We encountered a little hiccup while preparing your order. 
-          Don't worry, we're on it! Please try refreshing the page.
+          Don&apos;t worry, we&apos;re on it! Please try refreshing the page.
         </p>
 
         <motion.button

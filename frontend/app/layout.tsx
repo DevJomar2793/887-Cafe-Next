@@ -1,18 +1,11 @@
 import type { Metadata } from "next";
-import { Nunito } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
 
-const nunito = Nunito({
-  variable: "--font-nunito",
-  subsets: ["latin"],
-  weight: ["400", "600", "700", "800"],
-});
-
 export const metadata: Metadata = {
-  title: "Aura Coffee | Fresh Coffee, Warm Moments",
+  title: "887 Cafe | Coffee, comfort, and good food",
   description:
-    "Experience the finest handcrafted coffee in a cozy minimalist atmosphere.",
+    "Discover coffee, comfort food, and easy pickup ordering at 887 Cafe.",
 };
 
 export default function RootLayout({
@@ -22,10 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body
-        className={`${nunito.variable} antialiased font-sans bg-cream text-warm-black`}
-        suppressHydrationWarning
-      >
+      <body className="antialiased bg-cream text-warm-black" suppressHydrationWarning>
         <CartProvider>{children}</CartProvider>
       </body>
     </html>

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Calendar, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface DashboardFiltersProps {
